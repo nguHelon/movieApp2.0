@@ -13,7 +13,7 @@ module.exports = {
         primaryGray: "#18191a",
         secondaryGray: "#242526",
         lightGray1: "#3a3b3c",
-        lightGray2: "#bob3b8"
+        lightGray2: "#b0b3b8"
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

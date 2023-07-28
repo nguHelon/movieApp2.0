@@ -8,10 +8,10 @@ const App = () => {
     <div className="w-full h-auto flex bg-primaryGray">
       <Sidebar />
 
-      <div className="">
+      <div className="flex-1 flex flex-col">
         <Header />
 
-        <div className="">
+        <div className="px-5 h-[calc(100vh-57px)]  overflow-y-scroll hide-scrollbar">
           <Routes>
             <Route path="/" element={<Home />} />
           </Routes>
