@@ -1,6 +1,9 @@
 import MovieCard from "./MovieCard"
+import { useGetUpcomingMoviesQuery } from "../store/services/tmdbAPI"
 
 const Upcoming = () => {
+//   const { data, isFetching, error} = useGetUpcomingMoviesQuery();
+
   return (
     <div className="flex-1">
         <div className="w-full flex justify-between items-center py-3 px-2">

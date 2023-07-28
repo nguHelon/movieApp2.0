@@ -1,7 +1,10 @@
 import { transformers, harvey } from "../assets/index"
 import { Link } from "react-router-dom"
+import { useGetPopularMoviesQuery } from "../store/services/tmdbAPI"
 
 const MovieInfo = () => {
+    // const {data, isFetching, error} = useGetPopularMoviesQuery();
+
     return (
         <div className="w-full flex items-center justify-start p-2 rounded-lg bg-secondaryGray hover:border hover:border-lightGray1">
             <h3 className="text-lightGray2 font-bold mr-2">1.</h3>
