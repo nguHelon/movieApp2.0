@@ -1,8 +1,13 @@
 import MovieCard from "./MovieCard"
 import { useGetUpcomingMoviesQuery } from "../store/services/tmdbAPI"
+import Loader from "./Loader";
 
 const Upcoming = () => {
-//   const { data, isFetching, error} = useGetUpcomingMoviesQuery();
+  const { data, isFetching, error} = useGetUpcomingMoviesQuery();
+
+  if (isFetching) return <Loader title="Loading Movies..." />
+
+  console.log(data);
 
   return (
     <div className="flex-1">
@@ -15,16 +20,16 @@ const Upcoming = () => {
             <h1 className="text-sm text-lightGray2">All Upcoming Movies</h1>
         </div>
         <div className=" flex flex-wrap justify-center gap-3">
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            {
+                data?.results?.slice(0, 5).map(movie => {
+                    return <MovieCard 
+                        key={movie.id}
+                        movieName={movie.original_title}
+                        releaseDate={movie.release_date}
+                        backdropPath={movie.backdrop_path}
+                    />
+                })
+            }
         </div>
     </div>
   )
