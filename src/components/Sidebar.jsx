@@ -41,7 +41,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="flex flex-col items-start justify-between h-[100vh] w-[180px] px-4 py-5 bg-secondaryGray border-r border-lightGray1">
+      <div className="hidden flex-col items-start justify-between h-[100vh] w-[180px] px-4 py-5 bg-secondaryGray border-r border-lightGray1 sm:flex">
         <NavLinks />
         <div className="w-full flex flex-col justify-center items-center text-gray-400 font-bold">
           <span>Powered by</span>

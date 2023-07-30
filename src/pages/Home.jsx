@@ -3,7 +3,7 @@ import MoreContent from "../components/MoreContent"
 
 const Home = () => {
   return (
-    <div className="flex py-5">
+    <div className="flex py-5 flex-col-reverse md:flex-row">
       <Upcoming />
       <MoreContent />
     </div>
