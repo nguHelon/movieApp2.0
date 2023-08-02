@@ -1,9 +1,11 @@
+import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
-import { HiStar, HiHeart } from "react-icons/hi"
+import { HiStar, HiHeart, HiOutlineMenu } from "react-icons/hi"
 import { BiMoviePlay, BiSolidCameraMovie, BiSolidHome, BiListUl } from "react-icons/bi"
 import { TiGroup } from "react-icons/ti"
 import { SiThemoviedatabase } from "react-icons/si"
+import { RiCloseLine } from "react-icons/ri"
 
 const links = [
   { name: "Home", to: "/", icon: BiSolidHome },
@@ -37,7 +39,7 @@ const NavLinks = () => {
 }
 
 const Sidebar = () => {
-  
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <>
@@ -48,6 +50,22 @@ const Sidebar = () => {
           <SiThemoviedatabase className="ml-2 text-mainorange text-5xl"/>
         </div>
       </div>
+
+      {/* mobile sidebar */}
+      <div className="absolute sm:hidden block right-3 top-4">
+        {
+          mobileMenuOpen ? <RiCloseLine className="w-6 h-6 text-white" onClick={() => setMobileMenuOpen(false)}/> : <HiOutlineMenu className="w-6 h-6 text-white" onClick={() => setMobileMenuOpen(true)}/>
+        }
+      </div>
+
+      <div className={`absolute h-screen top-0 w-2/3 flex flex-col items-start justify-between px-4 py-5 bg-primaryGray/90 z-10 backdrop-blur-xl smooth-transition sm:hidden ${mobileMenuOpen ? "left-0" : "-left-full"}`}>
+        <NavLinks />
+        <div className="w-full flex flex-col justify-center items-center text-gray-400 font-bold">
+          <span>Powered by</span>
+          <SiThemoviedatabase className="ml-2 text-mainorange text-5xl"/>
+        </div>
+      </div>
+
     </>
   )
 }

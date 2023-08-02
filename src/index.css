@@ -29,6 +29,10 @@
   scrollbar-width: none; /* Firefox */
 }
 
+.smooth-transition {
+  transition: all 0.3s ease-in-out;
+}
+
 .text-gradient {
   background: radial-gradient(
     64.18% 64.18% at 71.16% 35.69%,

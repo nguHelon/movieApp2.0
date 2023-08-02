@@ -5,7 +5,7 @@ import { Home } from "./pages/pages"
 
 const App = () => {
   return (
-    <div className="w-full h-auto flex bg-primaryGray">
+    <div className="w-full h-auto flex bg-primaryGray relative">
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
