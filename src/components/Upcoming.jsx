@@ -20,7 +20,7 @@ const Upcoming = () => {
         <div className=" flex flex-wrap justify-center gap-3">
             {
                 data?.results?.slice(0, 5).map(movie => {
-                    return <MovieCard 
+                    if (movie.backdrop_path) return <MovieCard 
                         key={movie.id}
                         movieName={movie.original_title}
                         releaseDate={movie.release_date}

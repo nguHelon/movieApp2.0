@@ -28,7 +28,7 @@ const MoreContent = () => {
         <div className="w-full flex flex-col">
             <div className="w-full flex justify-between items-center mb-2 p-2">
                 <h1 className="text-white font-bold text-xl md:text-2xl">Popular Trailers</h1>
-                <Link className="text-lightGray2 text-sm">See more</Link>
+                <Link to="/popularMovies" className="text-lightGray2 text-sm">See more</Link>
             </div>
             <div className="flex flex-col gap-1 min-w-[280px] md:w-full">
                 {

@@ -1,7 +1,7 @@
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 import { Routes, Route } from "react-router-dom"
-import { Home } from "./pages/pages"
+import { Actors, AllPopular, AllUpcoming, Home } from "./pages/pages"
 
 const App = () => {
   return (
@@ -14,6 +14,9 @@ const App = () => {
         <div className="px-5 h-[calc(100vh-57px)]  overflow-y-scroll hide-scrollbar">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/popularMovies" element={<AllPopular />} />
+            <Route path="/upcomingMovies" element={<AllUpcoming />} />
+            <Route path="/actors" element={<Actors />} />
           </Routes>
         </div>
       </div>
