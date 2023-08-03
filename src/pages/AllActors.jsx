@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useGetActorsQuery } from "../store/services/tmdbAPI";
 import ActorView from "../components/ActorView";

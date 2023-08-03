@@ -4,6 +4,7 @@ import AllPopular from "./AllPopular";
 import Actors from "./Actors";
 import AllActors from "./AllActors";
 import SearchedActor from "./SearchedActor";
+import SearchedMovie from "./SearchedMovie";
 
 export {
     Home,
@@ -11,5 +12,6 @@ export {
     AllPopular,
     Actors,
     AllActors,
-    SearchedActor
+    SearchedActor,
+    SearchedMovie,
 }

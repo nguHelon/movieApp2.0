@@ -28,7 +28,8 @@ export const tmdbAPI = createApi({
         getUpcomingMovies: builder.query({ query: () => "/movie/upcoming" }),
         getPopularMovies: builder.query({ query: () => "/movie/popular" }),
         getActors: builder.query({ query: () => "/person/popular" }),
-        getSearchedActor: builder.query({ query: ({ searchTerm }) => `/search/person?query=${searchTerm}` })
+        getSearchedActor: builder.query({ query: ({ searchTerm }) => `/search/person?query=${searchTerm}` }),
+        getSearchedMovie: builder.query({ query: ({ movieSearchTerm }) => `/search/movie?query=${movieSearchTerm}` })
     })
 });
 
@@ -37,4 +38,5 @@ export const {
     useGetPopularMoviesQuery,
     useGetActorsQuery,
     useGetSearchedActorQuery,
+    useGetSearchedMovieQuery,
 } = tmdbAPI;
