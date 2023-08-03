@@ -1,7 +1,7 @@
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 import { Routes, Route } from "react-router-dom"
-import { Actors, AllPopular, AllUpcoming, Home } from "./pages/pages"
+import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor } from "./pages/pages"
 
 const App = () => {
   return (
@@ -11,12 +11,16 @@ const App = () => {
       <div className="flex-1 flex flex-col">
         <Header />
 
-        <div className="px-5 h-[calc(100vh-57px)]  overflow-y-scroll hide-scrollbar">
+        <div className="px-5 h-[calc(100vh-57px)]  overflow-y-scroll hide-scrollbar relative">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/popularMovies" element={<AllPopular />} />
             <Route path="/upcomingMovies" element={<AllUpcoming />} />
-            <Route path="/actors" element={<Actors />} />
+            <Route path="/actors" element={<Actors />} >
+              <Route index element={<AllActors />} />
+              <Route path="/actors/:searchTerm" element={<SearchedActor />} />
+              {/* <Route path="/actors/:actorId" element={} /> */}
+            </Route>
           </Routes>
         </div>
       </div>
