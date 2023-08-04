@@ -8,6 +8,8 @@ const Actors = () => {
 
   function handleSubmit() {
     navigate(`/actors/${inputValue}`);
+
+    setInputValue(" ");
   }
 
   return (
@@ -18,6 +20,7 @@ const Actors = () => {
             onChange={(e) => {
               setInputValue(e.target.value)
             }}
+            value={inputValue}
             className="flex-1 h-10 rounded-l-full bg-black/40 pl-3 text-mainorange outline-none border border-lightGray1"
             type="text"
             placeholder="search for actor"
@@ -26,7 +29,7 @@ const Actors = () => {
             className="w-[70px] h-10 bg-secondaryGray flex items-center justify-center rounded-r-full border border-lightGray1 xs:w-[100px]"
             onClick={() => {
               handleSubmit();
-            }}
+            }}            
           >
             <BiSearch className="font-bold text-white text-2xl" />
           </button>
