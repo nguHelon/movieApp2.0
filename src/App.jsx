@@ -1,7 +1,7 @@
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 import { Routes, Route } from "react-router-dom"
-import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie } from "./pages/pages"
+import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies} from "./pages/pages"
 
 const App = () => {
   return (
@@ -20,7 +20,10 @@ const App = () => {
               <Route index element={<AllActors />} />
               <Route path="/actors/:searchTerm" element={<SearchedActor />} />              
             </Route>
-            <Route path="/movieSearch" element={<SearchedMovie />} />
+            <Route path="/movieSearch" element={<SearchedMovie />} >
+              <Route index element={<SearchedMovieIndex />} />
+              <Route path="moviebyGenre/:genreId" element={<GenreMovies />} />
+            </Route>
           </Routes>
         </div>
       </div>

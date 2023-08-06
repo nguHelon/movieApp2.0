@@ -1,15 +1,34 @@
 import { useState } from "react"
-import { useGetSearchedMovieQuery } from "../store/services/tmdbAPI";
-import MovieCard from "../components/MovieCard";
-import Loader from "../components/Loader";
+import { NavLink, Outlet } from "react-router-dom";
+import { useGetGenreListQuery } from "../store/services/tmdbAPI";
+
+const GenreList = () => {
+  const {data} = useGetGenreListQuery();
+
+  return (
+    <div className="w-full py-4 px-3 flex flex-wrap items-center justify-center space-x-2 space-y-2">
+      {
+        data?.genres?.map(genre => {
+          return (
+            <NavLink
+              key={genre.id}
+              className={`px-4 py-2 border border-lightGray1 rounded-full font-medium text-white`}
+            >
+              {genre.name}
+            </NavLink>
+          )
+        })        
+      }
+    </div>
+  )
+}
 
 const SearchedMovie = () => {
-  const [movieSearchTerm, setMovieSearchTerm] = useState("");
-  const {data, isFetching} = useGetSearchedMovieQuery({ movieSearchTerm })
+  const [movieSearchTerm, setMovieSearchTerm] = useState(" ");  
 
   return (
     <div className="w-full absolute top-0 left-0">
-      <div className="w-full flex items-center justify-center py-5 border-b border-lightGray1">
+      <div className="w-full flex flex-col items-center justify-center py-5 border-b border-lightGray1">
         <div className="w-5/6 xs:w-2/3 flex items-center">
           <input 
             onChange={(e) => {
@@ -20,27 +39,11 @@ const SearchedMovie = () => {
             placeholder="search for movie"
           />           
         </div>
+        <GenreList />
       </div>
 
-      <div className="w-full px-5 py-7">
-        <div className="w-full">
-            <div className="w-full flex items-center justify-start mb-4">
-                <h1 className="text-white font-bold text-2xl">Search results for {`"${movieSearchTerm}"`}</h1>
-            </div>
-            <div className="w-full flex justify-center items-center gap-2 flex-wrap">
-                { isFetching ? <Loader /> :
-                    data?.results?.map((movie) => {
-                        if (movie.backdrop_path) return <MovieCard 
-                            key={movie.id}
-                            releaseDate={movie.release_date}
-                            movieName={movie.original_title}
-                            backdropPath={movie.backdrop_path}
-                        />
-                    })
-                }
-            </div>
-        </div>
-    </div>
+      <Outlet context={[movieSearchTerm]} />
+      
     </div>
   )
 }

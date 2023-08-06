@@ -1,19 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-// const options = {
-//     method: 'GET',
-//     headers: {
-//         accept: 'application/json',
-//         Authorization: 'Bearer fa1ef563179d6939e07ef1901aec8204'
-//     }
-// };
-
-// fetch('https://api.themoviedb.org/3/discover/movie', options)
-//     .then(response => response.json())
-//     .then(response => console.log(response))
-//     .catch(err => console.error(err));
-
-
 export const tmdbAPI = createApi({
     reducerPath: "tmdbAPI",
     baseQuery: fetchBaseQuery({
@@ -29,7 +15,9 @@ export const tmdbAPI = createApi({
         getPopularMovies: builder.query({ query: () => "/movie/popular" }),
         getActors: builder.query({ query: () => "/person/popular" }),
         getSearchedActor: builder.query({ query: ({ searchTerm }) => `/search/person?query=${searchTerm}` }),
-        getSearchedMovie: builder.query({ query: ({ movieSearchTerm }) => `/search/movie?query=${movieSearchTerm}` })
+        getSearchedMovie: builder.query({ query: ({ movieSearchTerm }) => `/search/movie?query=${movieSearchTerm}` }),
+        getGenreList: builder.query({ query: () => "/genre/movie/list" }),
+        getMovieByGenre: builder.query({ query: ({ genreId }) => `/discover/movie?include_adult=true&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}` })
     })
 });
 
@@ -39,4 +27,5 @@ export const {
     useGetActorsQuery,
     useGetSearchedActorQuery,
     useGetSearchedMovieQuery,
+    useGetGenreListQuery,
 } = tmdbAPI;

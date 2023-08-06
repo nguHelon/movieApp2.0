@@ -8,7 +8,7 @@ const PeopleList = () => {
     <div className="flex flex-col">
         <div className="w-full flex justify-between items-center mb-2 p-2">
             <h1 className="text-white font-bold text-xl md:text-2xl">Actors</h1>
-            <Link className="text-lightGray2 text-sm">See more</Link>
+            <Link to="/actors" className="text-lightGray2 text-sm">See more</Link>
         </div>
         <div className="flex flex-wrap gap-2 ss:justify-center">
             {
