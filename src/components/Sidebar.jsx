@@ -2,16 +2,16 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
 import { HiStar, HiHeart, HiOutlineMenu } from "react-icons/hi"
-import { BiMoviePlay, BiSolidCameraMovie, BiSolidHome, BiListUl } from "react-icons/bi"
+import { BiSolidCameraMovie, BiSolidHome, BiListUl, BiSearch } from "react-icons/bi"
 import { TiGroup } from "react-icons/ti"
 import { SiThemoviedatabase } from "react-icons/si"
 import { RiCloseLine } from "react-icons/ri"
 
 const links = [
   { name: "Home", to: "/", icon: BiSolidHome },
+  { name: "Search Movie", to: "/movieSearch", icon: BiSearch },
   { name: "Popular movies", to: "/popularMovies", icon: HiStar },
   { name: "Upcoming movies", to: "/upcomingMovies", icon: BiSolidCameraMovie },
-  { name: "Now playing", to: "/nowPlaying", icon: BiMoviePlay },
   { name: "Actors", to: "/actors", icon: TiGroup },
   { name: "watchlist", to: "/watchlist", icon: BiListUl },
   { name: "favorites", to: "/favorites", icon: HiHeart }

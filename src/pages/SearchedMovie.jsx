@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useGetGenreListQuery } from "../store/services/tmdbAPI";
 
 const GenreList = () => {
@@ -11,8 +11,9 @@ const GenreList = () => {
         data?.genres?.map(genre => {
           return (
             <NavLink
+              to={`moviebyGenre/${genre.id}/${genre.name}`}
               key={genre.id}
-              className={`px-4 py-2 border border-lightGray1 rounded-full font-medium text-white`}
+              className={({isActive}) =>  `px-4 py-2 border border-lightGray1 rounded-full font-medium ${isActive ? "text-black font-bold bg-mainorange border-2 border-black" : "text-white" } `}
             >
               {genre.name}
             </NavLink>
@@ -24,7 +25,8 @@ const GenreList = () => {
 }
 
 const SearchedMovie = () => {
-  const [movieSearchTerm, setMovieSearchTerm] = useState(" ");  
+  const navigate = useNavigate()
+  const [movieSearchTerm, setMovieSearchTerm] = useState("");  
 
   return (
     <div className="w-full absolute top-0 left-0">
@@ -33,6 +35,9 @@ const SearchedMovie = () => {
           <input 
             onChange={(e) => {
               setMovieSearchTerm(e.target.value)
+            }}
+            onClick={() => {
+              navigate("/movieSearch")
             }}
             className="flex-1 h-10 rounded-full bg-black/40 pl-3 text-mainorange outline-none border border-lightGray1"
             type="text"

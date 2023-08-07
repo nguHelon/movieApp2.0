@@ -28,4 +28,5 @@ export const {
     useGetSearchedActorQuery,
     useGetSearchedMovieQuery,
     useGetGenreListQuery,
+    useGetMovieByGenreQuery,
 } = tmdbAPI;

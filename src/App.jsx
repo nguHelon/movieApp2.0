@@ -22,7 +22,7 @@ const App = () => {
             </Route>
             <Route path="/movieSearch" element={<SearchedMovie />} >
               <Route index element={<SearchedMovieIndex />} />
-              <Route path="moviebyGenre/:genreId" element={<GenreMovies />} />
+              <Route path="moviebyGenre/:genreId/:genreName" element={<GenreMovies />} />
             </Route>
           </Routes>
         </div>
