@@ -17,7 +17,11 @@ export const tmdbAPI = createApi({
         getSearchedActor: builder.query({ query: ({ searchTerm }) => `/search/person?query=${searchTerm}` }),
         getSearchedMovie: builder.query({ query: ({ movieSearchTerm }) => `/search/movie?query=${movieSearchTerm}` }),
         getGenreList: builder.query({ query: () => "/genre/movie/list" }),
-        getMovieByGenre: builder.query({ query: ({ genreId }) => `/discover/movie?include_adult=true&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}` })
+        getMovieByGenre: builder.query({ query: ({ genreId }) => `/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}` }),
+        getMovieDetail: builder.query({ query: ({ movieId }) => `/movie/${movieId}?language=en-US'` }),
+        getMovieCast: builder.query({ query: ({ movieId }) => `/movie/${movieId}/credits` }),
+        getMovieRecommendations: builder.query({ query: ({ movieId }) => `/movie/${movieId}/recommendations` }),
+        getMovieKeywords: builder.query({ query: ({ movieId }) => `/movie/${movieId}/keywords` })
     })
 });
 
@@ -29,4 +33,8 @@ export const {
     useGetSearchedMovieQuery,
     useGetGenreListQuery,
     useGetMovieByGenreQuery,
+    useGetMovieDetailQuery,
+    useGetMovieCastQuery,
+    useGetMovieRecommendationsQuery,
+    useGetMovieKeywordsQuery,
 } = tmdbAPI;

@@ -2,10 +2,11 @@ import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
 import { HiStar, HiHeart, HiOutlineMenu } from "react-icons/hi"
-import { BiSolidCameraMovie, BiSolidHome, BiListUl, BiSearch } from "react-icons/bi"
+import { BiSolidCameraMovie, BiSolidHome, BiSearch } from "react-icons/bi"
 import { TiGroup } from "react-icons/ti"
 import { SiThemoviedatabase } from "react-icons/si"
 import { RiCloseLine } from "react-icons/ri"
+import { BsBookmarkFill } from "react-icons/bs"
 
 const links = [
   { name: "Home", to: "/", icon: BiSolidHome },
@@ -13,11 +14,11 @@ const links = [
   { name: "Popular movies", to: "/popularMovies", icon: HiStar },
   { name: "Upcoming movies", to: "/upcomingMovies", icon: BiSolidCameraMovie },
   { name: "Actors", to: "/actors", icon: TiGroup },
-  { name: "watchlist", to: "/watchlist", icon: BiListUl },
+  { name: "watchlist", to: "/watchlist", icon: BsBookmarkFill },
   { name: "favorites", to: "/favorites", icon: HiHeart }
 ]
 
-const NavLinks = () => {
+const NavLinks = ({ handleClick }) => {
   return (
     <div>
       {
@@ -27,6 +28,9 @@ const NavLinks = () => {
               key={link.name}
               to={link.to}
               className={({isActive}) => `flex items-center justify-start text-sm font-medium my-8 text-gray-400 hover:text-mainorange ${ isActive ? "text-mainorange" : ""}`}
+              onClick={() => {
+                handleClick && handleClick();
+              }}
             >
               <link.icon className="h-5 w-5 mr-2"  />
               {link.name}
@@ -59,7 +63,7 @@ const Sidebar = () => {
       </div>
 
       <div className={`absolute h-screen top-0 w-2/3 flex flex-col items-start justify-between px-4 py-5 bg-primaryGray/90 z-10 backdrop-blur-xl smooth-transition sm:hidden ${mobileMenuOpen ? "left-0" : "-left-full"}`}>
-        <NavLinks />
+        <NavLinks handleClick={() => setMobileMenuOpen(false)}/>
         <div className="w-full flex flex-col justify-center items-center text-gray-400 font-bold">
           <span>Powered by</span>
           <SiThemoviedatabase className="ml-2 text-mainorange text-5xl"/>

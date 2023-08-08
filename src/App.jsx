@@ -1,7 +1,7 @@
+import { Routes, Route } from "react-router-dom"
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
-import { Routes, Route } from "react-router-dom"
-import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies} from "./pages/pages"
+import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies, MovieInfo } from "./pages/pages"
 
 const App = () => {
   return (
@@ -24,6 +24,7 @@ const App = () => {
               <Route index element={<SearchedMovieIndex />} />
               <Route path="moviebyGenre/:genreId/:genreName" element={<GenreMovies />} />
             </Route>
+            <Route path="/movieInfo/:movieId" element={<MovieInfo />} />
           </Routes>
         </div>
       </div>

@@ -13,7 +13,7 @@ const GenreList = () => {
             <NavLink
               to={`moviebyGenre/${genre.id}/${genre.name}`}
               key={genre.id}
-              className={({isActive}) =>  `px-4 py-2 border border-lightGray1 rounded-full font-medium ${isActive ? "text-black font-bold bg-mainorange border-2 border-black" : "text-white" } `}
+              className={({isActive}) =>  `px-3 py-1 border border-lightGray1 rounded-full font-medium text-sm sm:px-4 sm:py-2 sm:text-[18px] ${isActive ? "text-black font-bold bg-mainorange border-2 border-black" : "text-white" } `}
             >
               {genre.name}
             </NavLink>
