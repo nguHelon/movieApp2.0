@@ -3,7 +3,7 @@ import { useGetUpcomingMoviesQuery } from "../store/services/tmdbAPI"
 import Loader from "./Loader";
 
 const Upcoming = () => {
-  const { data, isFetching, error} = useGetUpcomingMoviesQuery();
+  const { data, isFetching} = useGetUpcomingMoviesQuery();
 
   if (isFetching) return <Loader title="Loading Movies..." />
 
@@ -22,6 +22,7 @@ const Upcoming = () => {
                 data?.results?.slice(0, 5).map(movie => {
                     if (movie.backdrop_path) return <MovieCard 
                         key={movie.id}
+                        movieId={movie.id}
                         movieName={movie.original_title}
                         releaseDate={movie.release_date}
                         backdropPath={movie.backdrop_path}

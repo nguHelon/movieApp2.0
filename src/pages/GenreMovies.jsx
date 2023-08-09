@@ -20,6 +20,7 @@ const GenreMovies = () => {
                         data?.results?.map((movie) => {
                             if (movie.backdrop_path) return <MovieCard 
                                 key={movie.id}
+                                movieId={movie.id}
                                 releaseDate={movie.release_date}
                                 movieName={movie.original_title}
                                 backdropPath={movie.backdrop_path}

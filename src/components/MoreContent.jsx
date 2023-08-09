@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { useGetPopularMoviesQuery } from "../store/services/tmdbAPI"
 import PeopleList from "./PeopleList"
 
-const MovieInfo = ({ index, movieName, releaseDate, posterPath }) => {
+const MovieInfo = ({ movieId, index, movieName, releaseDate, posterPath }) => {
     return (
         <div className="w-full flex items-center justify-start p-2 rounded-lg bg-secondaryGray hover:border hover:border-lightGray1">
             <h3 className="text-lightGray2 font-bold mr-2">{index + 1}.</h3>
@@ -14,7 +14,7 @@ const MovieInfo = ({ index, movieName, releaseDate, posterPath }) => {
                         <h3 className="font-semibold text-lightGray2 text-xs">{releaseDate}</h3>
                     </div>
                 </div>
-                <Link className="py-1 px-2 text-black font-bold text-sm bg-mainorange rounded-full">View</Link>
+                <Link to={`/movieInfo/${movieId}`} className="py-1 px-2 text-black font-bold text-sm bg-mainorange rounded-full">View</Link>
             </div>
         </div>
     )
@@ -35,6 +35,7 @@ const MoreContent = () => {
                     data?.results?.slice(0, 4).map((movie, i) => {
                         return <MovieInfo 
                             key={movie.id}
+                            movieId={movie.id}
                             index={i}
                             movieName={movie.original_title}
                             releaseDate={movie.release_date}

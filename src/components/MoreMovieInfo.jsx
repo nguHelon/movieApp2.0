@@ -7,34 +7,39 @@ const MoreMovieInfo = ({ movieData }) => {
   const { data } = useGetMovieKeywordsQuery({ movieId });
 
   return (
-    <div className="w-[350px]">
-        <Link><FcLink /></Link>
-        <div className="">
-            <h1>Status</h1>
-            <p>{movieData.status}</p>
+    <div className="w-full flex flex-wrap items-start justify-start space-x-3 sm:block">
+        <div className="w-full flex flex-wrap items-start gap-3 sm:block">
+            <Link to={`${movieData.homepage}`}><FcLink className="text-3xl" /></Link>
+            <div className="mb-4">
+                <h1 className="text-white font-bold">Status</h1>
+                <p className="text-lightGray2">{movieData.status}</p>
+            </div>
+            <div className="mb-4">
+                <h1 className="text-white font-bold">Original Language</h1>
+                <p className="text-lightGray2">{movieData.original_language}</p>
+            </div>
+            <div className="mb-4">
+                <h1 className="text-white font-bold">Budget</h1>
+                <p className="text-lightGray2">${movieData.budget}</p>
+            </div>
+            <div className="mb-4">
+                <h1 className="text-white font-bold">Revenue</h1>
+                <p className="text-lightGray2">${movieData.revenue}</p>
+            </div>
         </div>
         <div className="">
-            <h1>Original Language</h1>
-            <p>{movieData.original_language}</p>
-        </div>
-        <div className="">
-            <h1>Budget</h1>
-            <p>${movieData.budget}</p>
-        </div>
-        <div className="">
-            <h1>Revenue</h1>
-            <p>{movieData.revenue}</p>
-        </div>
-        <div className="">
-            {
-                data?.keywords?.map(keyword => {
-                    return (
-                        <button key={keyword.id} className="">
-                            {keyword.name}
-                        </button>
-                    )
-                })
-            }
+            <h1 className="text-white font-bold">Keywords</h1>
+            <div className="w-full flex flex-wrap items-center gap-1">
+                {
+                    data?.keywords?.map(keyword => {
+                        return (
+                            <button key={keyword.id} className="outline-none bg-lightGray1 text-black rounded-full px-2 py-1 text-[12px] md:px-3 md:text-[15px]">
+                                {keyword.name}
+                            </button>
+                        )
+                    })
+                }
+            </div>
         </div>
     </div>
   )

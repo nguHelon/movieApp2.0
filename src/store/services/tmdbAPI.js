@@ -21,7 +21,9 @@ export const tmdbAPI = createApi({
         getMovieDetail: builder.query({ query: ({ movieId }) => `/movie/${movieId}?language=en-US'` }),
         getMovieCast: builder.query({ query: ({ movieId }) => `/movie/${movieId}/credits` }),
         getMovieRecommendations: builder.query({ query: ({ movieId }) => `/movie/${movieId}/recommendations` }),
-        getMovieKeywords: builder.query({ query: ({ movieId }) => `/movie/${movieId}/keywords` })
+        getMovieKeywords: builder.query({ query: ({ movieId }) => `/movie/${movieId}/keywords` }),
+        getContentRating: builder.query({ query: ({ movieId }) => `/movie/${movieId}/release_dates` }),
+        getMovieTrailer: builder.query({ query: ({ movieId }) => `/movie/${movieId}/videos` }),
     })
 });
 
@@ -37,4 +39,6 @@ export const {
     useGetMovieCastQuery,
     useGetMovieRecommendationsQuery,
     useGetMovieKeywordsQuery,
+    useGetContentRatingQuery,
+    useGetMovieTrailerQuery,
 } = tmdbAPI;
