@@ -12,7 +12,7 @@ import { useState } from "react"
 const MovieTrailer = ({ setShowTrailer }) => {
     const { movieId } = useParams();
     const { data } = useGetMovieTrailerQuery({ movieId });
-    const trailerKey = data?.results?.find(trailer => trailer.site == "YouTube" && trailer.type == "Trailer" && trailer.official == true).key;
+    const trailerKey = data?.results?.find(trailer => trailer.site == "YouTube" && trailer.type == "Trailer").key;
     
     return (
         <div className="fixed top-0 left-0 w-full h-screen flex justify-center items-center bg-gradient-to-r from-black/90 to-black/90 backdrop-blur-xl">
@@ -37,7 +37,7 @@ const GetMovieRating = () => {
     return (
         <span className="px-1 rounded-[4px] border border-lightGray2 text-lightGray2">
             {
-                data?.results?.find(item => item.iso_3166_1 == "US").release_dates[0].certification
+                data?.results?.find(item => item?.iso_3166_1 == "US")?.release_dates[0]?.certification
             }
         </span>
     )
@@ -64,7 +64,7 @@ const MovieInfo = () => {
                         <div className="flex flex-wrap items-center justify-center md:justify-start space-x-2 text-white">
                             <GetMovieRating />
                             <span>{data?.release_date}</span>
-                            <span>({data?.production_countries[0].iso_3166_1})</span>
+                            <span>({data?.production_countries[0]?.iso_3166_1})</span>
                             <div className="h-[4px] w-[4px] rounded-full bg-white"></div>
                             <p>{data?.genres.map((genre, i) => data?.genres.length == i ? genre.name : genre.name + "," )}</p>
                             <div className="h-[4px] w-[4px] rounded-full bg-white"></div>
