@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom"
-import { BsFillPlayFill, BsBookmarkFill } from "react-icons/bs"
+import { BsFillPlayFill } from "react-icons/bs"
 import { FaTimes } from "react-icons/fa"
-import { HiHeart } from "react-icons/hi"
 import { useGetContentRatingQuery, useGetMovieDetailQuery, useGetMovieTrailerQuery } from "../store/services/tmdbAPI"
 import Loader from "../components/Loader"
 import MovieCast from "../components/MovieCast"
@@ -11,8 +10,10 @@ import { useState } from "react"
 
 const MovieTrailer = ({ setShowTrailer }) => {
     const { movieId } = useParams();
-    const { data } = useGetMovieTrailerQuery({ movieId });
+    const { data, isFetching } = useGetMovieTrailerQuery({ movieId });
     const trailerKey = data?.results?.find(trailer => trailer.site == "YouTube" && trailer.type == "Trailer").key;
+
+    if (isFetching) return <Loader title="loading Trailer..." />
     
     return (
         <div className="fixed top-0 left-0 w-full h-screen flex justify-center items-center bg-gradient-to-r from-black/90 to-black/90 backdrop-blur-xl">
@@ -60,7 +61,7 @@ const MovieInfo = () => {
                 </div>
                 <div className="flex-1 text-center md:text-left">
                     <div className="mb-5">
-                        <h1 className="text-3xl font-semibold text-white">{data?.original_title} <span className="text-lightGray2">(2023)</span></h1>
+                        <h1 className="text-3xl font-semibold text-white">{data?.original_title} <span className="text-lightGray2">({data?.release_date?.split("-")[0]})</span></h1>
                         <div className="flex flex-wrap items-center justify-center md:justify-start space-x-2 text-white">
                             <GetMovieRating />
                             <span>{data?.release_date}</span>
@@ -79,9 +80,7 @@ const MovieInfo = () => {
                             }}
                         >
                             <BsFillPlayFill /> play trailer
-                        </button>
-                        <button className="p-3 rounded-full text-white bg-primaryGray"><HiHeart /></button>
-                        <button className="p-3 rounded-full text-white bg-primaryGray"><BsBookmarkFill /></button>
+                        </button>                        
                     </div>
                     <p className="text-lightGray2 mb-3 italic">{data?.tagline}</p>
                     <div className="">

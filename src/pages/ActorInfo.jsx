@@ -13,7 +13,7 @@ const ActorCredits = () => {
             {
                 limitedData?.map(movie => {
                     return (
-                        <Link key={movie?.id} to={`/movieInfo/${movie.id}`}>
+                        <Link key={movie?.id} to={`/movieInfo/${movie?.id}`}>
                             <div className="flex-none w-[200px] flex flex-col justify-center items-center space-y-1">
                                 <img src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`} alt="" className="w-full rounded-lg" />
                                 <div className="text-lightGray2 font-medium text-sm">{movie?.original_title}</div>

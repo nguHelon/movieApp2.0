@@ -1,5 +1,6 @@
 import { logo } from "../assets/index";
 import { Link } from "react-router-dom";
+import { AiFillGithub } from "react-icons/ai";
 
 const Header = () => {
   return (
@@ -11,8 +12,7 @@ const Header = () => {
         </div>
       </Link>
       <div className="hidden space-x-2 sm:flex">
-        <Link className="px-3 py-1 font-medium text-md rounded-md bg-mainorange">favorites</Link>
-        <Link className="px-3 py-1 font-medium text-md rounded-md bg-transparent text-lightGray2 border border-lightGray2">watchlist</Link>
+        <Link to="https://github.com/nguHelon/movieApp2.0" className="px-3 py-1 font-medium text-md flex items-center justify-between rounded-md bg-mainorange"><AiFillGithub className="mr-2" /> Github</Link>        
       </div>
     </div>
   )
