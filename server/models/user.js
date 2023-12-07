@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.model({
+const userSchema = mongoose.Schema({
     username: {
         type: String,
         required: true
+    },
+    email: {
+        type: String,
+        required: true,
     },
     password: {
         type: String,
@@ -15,9 +19,11 @@ const userSchema = mongoose.model({
     },
     likedMovies: {
         type: Array,
+        default: [],
     },
     favoriteMovies: {
         type: Array,
+        default: []
     }
 });
 
