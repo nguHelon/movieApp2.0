@@ -9,6 +9,8 @@ import SearchedMovieIndex from "./SearchedMovieIndex";
 import GenreMovies from "./GenreMovies";
 import MovieInfo from "./MovieInfo";
 import ActorInfo from "./ActorInfo";
+import SignUp from "./SignUp";
+import LogIn from "./LogIn";
 
 export {
     Home,
@@ -22,4 +24,6 @@ export {
     GenreMovies,
     MovieInfo,
     ActorInfo,
+    SignUp,
+    LogIn
 }

@@ -11,6 +11,7 @@ const signUp = async (req, res, next) => {
         const user = await User.findOne({ email: userData.email });
         if (user) {
             next(errorHandler(400, "email already exist, please choose another one"));
+            return
         }
 
         const newUser = new User({ password: hashedPassword, ...userData });
@@ -30,12 +31,14 @@ const logIn = async (req, res, next) => {
 
         if (!user) {
             next(errorHandler(404, `user with email ${email} does not exist`));
+            return;
         }
 
         const validPassword = bcryptjs.compareSync(password, user.password);
 
         if (!validPassword) {
             next(errorHandler(400, "wrong credentials"));
+            return;
         }
 
         const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET);
@@ -43,7 +46,7 @@ const logIn = async (req, res, next) => {
 
         res
             .cookie("access_token", token)
-            .status(201)
+            .status(200)
             .json(userData);
     } catch (err) {
         next(err);

@@ -2,15 +2,19 @@ import express from "express";
 import dotenv from "dotenv";
 import connect from "./db/connect.js";
 import userRouter from "./routes/auth.js";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
 
 //middlewares
 app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
 
 //routes
-app.use("/auth", userRouter);
+app.use("/api/auth", userRouter);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
