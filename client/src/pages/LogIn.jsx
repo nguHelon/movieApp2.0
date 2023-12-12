@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { logInFailure, logInStart, logInSuccess } from "../store/services/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 const LogIn = () => {
     const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const LogIn = () => {
 
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <form className="w-10/12 flex flex-col space-y-2 md:w-2/5" onSubmit={handleSubmit}>               
+            <form className="w-10/12 flex flex-col space-y-2 text-center md:w-2/5" onSubmit={handleSubmit}>               
                 <input 
                     type="password" 
                     placeholder="Password" 
@@ -68,11 +69,12 @@ const LogIn = () => {
                 />
                 <input
                     type="submit"
-                    value="Log In"
+                    value={loading ? "Loading..." : "Log In"}
                     className={`text-center py-2 bg-mainorange rounded-lg font-medium fs-3 cursor-pointer ${ loading ? "bg-orange-900 cursor-not-allowed" : ""}`}
                     disabled={loading}            
                 />
                 <p className="text-lightGray2">or</p>
+                <OAuth />
                 {
                     error && <p className="text-red-500 fs-2">{error}</p>
                 }

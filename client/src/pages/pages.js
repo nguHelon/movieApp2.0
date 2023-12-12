@@ -11,6 +11,8 @@ import MovieInfo from "./MovieInfo";
 import ActorInfo from "./ActorInfo";
 import SignUp from "./SignUp";
 import LogIn from "./LogIn";
+import Profile from "./Profile"
+import PrivateRoutes from "./PrivateRoutes";
 
 export {
     Home,
@@ -25,5 +27,7 @@ export {
     MovieInfo,
     ActorInfo,
     SignUp,
-    LogIn
+    LogIn,
+    Profile,
+    PrivateRoutes
 }

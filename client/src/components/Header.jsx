@@ -33,7 +33,9 @@ const Header = () => {
             </Link>
           </div> :
           <div className="h-[40px] w-40px]">
-            <img src={user.currentUser.avatar} alt="user profile" className="w-full h-full rounded-full"/>
+            <Link to="/profile">
+              <img src={user.currentUser.avatar} alt="user profile" className="w-full h-full rounded-full"/>
+            </Link>
           </div>
         }
       </div>

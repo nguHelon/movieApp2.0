@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const SignUp = () => {
     username: "",
     email: "",
     password: ""
-  })
+  });
 
   const handleInputChange = (e) => {
     setUserData((prevData) => {
@@ -68,7 +69,7 @@ const SignUp = () => {
                 required
                 className="px-2 py-2 bg-secondaryGray text-white outline-none rounded-lg border border-1 border-gray-600"
             />
-            <input 
+            <input
                 type="email" 
                 placeholder="email" 
                 name="email" 
@@ -78,10 +79,11 @@ const SignUp = () => {
             />
             <input
                 type="submit"
-                value="Sign up"
+                value={loading ? "Loading..." : "Sign Up"}
                 className={`text-center py-2 bg-mainorange rounded-lg font-medium fs-3 cursor-pointer ${ loading ? "bg-orange-900 cursor-not-allowed" : ""}`}
                 disabled={loading}
             />
+            <OAuth />
             {
                 error && <p className="text-red-500 fs-2">{error}</p>
             }

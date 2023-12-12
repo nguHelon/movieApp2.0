@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
-import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies, MovieInfo, ActorInfo, LogIn, SignUp } from "./pages/pages"
+import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies, MovieInfo, ActorInfo, LogIn, SignUp, Profile, PrivateRoutes } from "./pages/pages"
 
 const App = () => {
   return (
@@ -16,6 +16,9 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/log-in" element={<LogIn />} />
+            <Route element={<PrivateRoutes />} >
+              <Route path="/profile" element={<Profile />} />
+            </Route>
             <Route path="/popularMovies" element={<AllPopular />} />
             <Route path="/upcomingMovies" element={<AllUpcoming />} />
             <Route path="/actors" element={<Actors />} >
