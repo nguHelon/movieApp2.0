@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 
 const updateUser = async (req, res, next) => {
     const { id } = req.params;
-    const { username, password, email, avatar } = req.body;
+    let { username, password, email } = req.body;
 
     if (req.user.id != id) {
         next(errorHandler(403, "You are not allowed to update another user"));
@@ -15,7 +15,7 @@ const updateUser = async (req, res, next) => {
             password = bcryptjs.hashSync(password, 10);
         }
 
-        const updatedUser = await User.findByIdAndUpdate(id, { username, password, email, avatar }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, { username, password, email }, { new: true });
 
         const { password: pass, ...rest } = updatedUser._doc;
 
@@ -25,6 +25,19 @@ const updateUser = async (req, res, next) => {
     }
 }
 
+const deleteUser = async (req, res, next) => {
+    if (req.user.id == req.params.id) next(errorHandler(403, "You are not allowed to delete another user"));
+
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie("access_token");
+        res.status(200).json("user deleted successfully");
+    } catch (err) {
+        next(err);
+    }
+}
+
 export {
-    updateUser
+    updateUser,
+    deleteUser
 }

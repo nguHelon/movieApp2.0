@@ -1,7 +1,12 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth"
 import { app } from "../firebase";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signUpSuccess } from "../store/services/userSlice";
 
 const OAuth = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -10,7 +15,17 @@ const OAuth = () => {
 
         const result = await signInWithPopup(auth, provider);
 
-        console.log(result);
+        const response = await fetch("/api/auth/google", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(result.user)
+        })
+
+        const data = await response.json();
+        dispatch(signUpSuccess(data));
+        navigate("/");
     } catch(err) {
         console.log(err);
     }

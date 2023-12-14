@@ -53,7 +53,52 @@ const logIn = async (req, res, next) => {
     }
 }
 
+const googleSignIn = async (req, res, next) => {
+    const { displayName: username, email, photoUrl: avatar } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (user) {
+            const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET);
+            const { password: pass, ...userData } = user._doc;
+
+            res
+                .cookie("access_token", token)
+                .status(200)
+                .json(userData);
+        } else {
+            const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+
+            const newUser = new User({ username, email, password: hashedPassword, avatar })
+            await newUser.save();
+
+            const token = jwt.sign({ id: newUser._id }, process.env.TOKEN_SECRET);
+            const { password: pass, ...userData } = newUser._doc;
+
+            res
+                .cookie("access_token", token)
+                .status(200)
+                .json(userData);
+        }
+    } catch (err) {
+        next(err);
+    }
+}
+
+const logOut = async (req, res, next) => {
+    try {
+        res.clearCookie("access_token");
+        res.status(200).json("logged out successfully")
+    } catch (err) {
+        next(err);
+    }
+}
+
 export {
     signUp,
-    logIn
+    logIn,
+    logOut,
+    googleSignIn
 }
