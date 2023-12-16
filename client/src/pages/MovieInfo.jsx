@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { BsFillPlayFill } from "react-icons/bs"
-import { FaTimes } from "react-icons/fa"
+import { FaTimes, FaHeart, FaBookmark } from "react-icons/fa"
 import { useGetContentRatingQuery, useGetMovieDetailQuery, useGetMovieTrailerQuery } from "../store/services/tmdbAPI"
 import Loader from "../components/Loader"
 import MovieCast from "../components/MovieCast"
@@ -80,7 +80,17 @@ const MovieInfo = () => {
                             }}
                         >
                             <BsFillPlayFill /> play trailer
-                        </button>                        
+                        </button>
+                        <button
+                            className="p-3 rounded-full bg-secondaryGray text-red-500"
+                        >
+                            <FaHeart />    
+                        </button>
+                        <button
+                            className="p-3 rounded-full bg-secondaryGray text-white"
+                        >
+                            <FaBookmark />    
+                        </button>              
                     </div>
                     <p className="text-lightGray2 mb-3 italic">{data?.tagline}</p>
                     <div className="">
