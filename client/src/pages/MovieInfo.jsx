@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { BsFillPlayFill } from "react-icons/bs"
 import { FaTimes, FaHeart, FaBookmark } from "react-icons/fa"
@@ -6,7 +7,8 @@ import Loader from "../components/Loader"
 import MovieCast from "../components/MovieCast"
 import MovieRecommendation from "../components/MovieRecommendation"
 import MoreMovieInfo from "../components/MoreMovieInfo"
-import { useState } from "react"
+import { addedToFavorite, addedToWatchlist, auth, favoriteClose } from "../store/services/modalsSlice"
+import { useDispatch, useSelector } from "react-redux"
 
 const MovieTrailer = ({ setShowTrailer }) => {
     const { movieId } = useParams();
@@ -45,10 +47,37 @@ const GetMovieRating = () => {
 }
 
 const MovieInfo = () => {
-  const [ showTrailer, setShowTrailer ] = useState(false)
-
+  const dispatch = useDispatch();    
   const { movieId } = useParams();
-  const { data, isFetching } = useGetMovieDetailQuery({ movieId })
+  const { currentUser } = useSelector((state) => state.user);
+  const [ showTrailer, setShowTrailer ] = useState(false);
+  const { data, isFetching } = useGetMovieDetailQuery({ movieId });
+
+  const addToFavorites = async () => {
+    try {
+        const response = await fetch(`/api/user/addtofavorites/${currentUser._id}/${movieId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        const data = await response.json();
+
+        if (data.movie == movieId) {
+            return dispatch(addedToFavorite("Already added to favorites ❌"));
+        }
+        
+        dispatch(addedToFavorite("Added to favorites successfully ✅"));
+
+        setTimeout(() => {
+            dispatch(favoriteClose());
+        }, 5000)
+        console.log(data);
+    } catch (err) {
+        console.log(err);
+    }
+  }
 
   if (isFetching) return <Loader title="loading movie details..." />
 
@@ -82,6 +111,7 @@ const MovieInfo = () => {
                             <BsFillPlayFill /> play trailer
                         </button>
                         <button
+                            onClick={addToFavorites}
                             className="p-3 rounded-full bg-secondaryGray text-red-500"
                         >
                             <FaHeart />    

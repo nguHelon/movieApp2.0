@@ -1,12 +1,24 @@
 import { Routes, Route } from "react-router-dom"
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
+import ReactionModal from "./components/ReactionModal"
 import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies, MovieInfo, ActorInfo, LogIn, SignUp, Profile, PrivateRoutes } from "./pages/pages"
+import { useSelector } from "react-redux"
 
 const App = () => {
+  const { favoritesModal, watchlistModal, authModal } = useSelector((state) => state.modals);
+
   return (
     <div className="w-full h-auto flex bg-primaryGray relative">
       <Sidebar />
+
+      {/* modal attachments */}
+      {
+        favoritesModal.open && <ReactionModal message={favoritesModal.message} />
+      }
+      {
+        watchlistModal.open && <ReactionModal message={favoritesModal.message} />
+      }
 
       <div className="flex-1 flex flex-col">
         <Header />

@@ -37,7 +37,32 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
+const addToFavorites = async (req, res, next) => {
+    const { id, movieId } = req.params;
+
+    if (req.user.id != id) next(errorHandler(403, "Log In to your own account to like for your own movies!"));
+
+    try {
+        const user = await User.findById(id);
+        const favoriteMovies = user.favoriteMovies;
+
+        const movie = favoriteMovies.find((movie) => movieId == movie);
+
+        if (movie) {
+            res.status(200).json(movie);
+            return;
+        }
+
+        const response = await User.updateOne({ _id: id }, { $push: { favoriteMovies: { $each: [movieId] } } });
+
+        res.status(200).json(response);
+    } catch (err) {
+        next(err);
+    }
+}
+
 export {
     updateUser,
-    deleteUser
+    deleteUser,
+    addToFavorites
 }

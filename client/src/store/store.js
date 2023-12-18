@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { tmdbAPI } from "./services/tmdbAPI";
 import userReducer from "./services/userSlice";
+import modalsReducer from "./services/modalsSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
     user: userReducer,
+    modals: modalsReducer,
     [tmdbAPI.reducerPath]: tmdbAPI.reducer
 });
 

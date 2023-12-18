@@ -144,7 +144,7 @@ const Profile = () => {
                 </button>
             </div>
             {
-                userUpdated && <p>updated your information successfully ✅ </p>
+                userUpdated && <p className="text-lightGray2 italic">updated your information successfully ✅ </p>
             }
             {
                 error && <p className="text-red-500 fs-2">{error}</p>
