@@ -21,24 +21,24 @@ const modalsSlice = createSlice({
     reducers: {
         addedToFavorite: (state, action) => {
             state.favoritesModal = { ...state.favoritesModal, open: true };
-            state.favoritesModal.message = action.payload;
+            state.favoritesModal = { ...state.favoritesModal, message: action.payload };
         },
         favoriteClose: (state) => {
-            state.favoritesModal.open = false;
+            state.favoritesModal = { ...state.favoritesModal, open: false };
         },
         addedToWatchlist: (state, action) => {
-            state.watchlistModal.open = true;
-            state.watchlistModal.message = action.payload;
+            state.watchlistModal = { ...state.watchlistModal, open: true };
+            state.watchlistModal = { ...state.watchlistModal, message: action.payload };
         },
         watchListClose: (state) => {
-            state.watchlistModal.open = false;
+            state.watchlistModal = { ...state.watchlistModal, open: false };
         },
         auth: (state, action) => {
-            state.authModal.open = true;
-            state.authModal.message == action.payload;
+            state.authModal = { ...state.authModal, open: true };
+            state.authModal = { ...state.authModal, message: action.payload };
         },
         authClose: (state) => {
-            state.authModal.open = false;
+            state.authModal = { ...state.authModal, open: false };
         }
     }
 });

@@ -61,8 +61,55 @@ const addToFavorites = async (req, res, next) => {
     }
 }
 
+const addToWatchlist = async (req, res, next) => {
+    const { id, movieId } = req.params;
+
+    if (req.user.id != id) next(errorHandler(403, "Log In to your own account to like for your own movies!"));
+
+    try {
+        const user = await User.findById(id);
+        const watchlist = user.watchlist;
+
+        const movie = watchlist.find((movie) => movieId == movie);
+
+        if (movie) {
+            res.status(200).json(movie);
+            return;
+        }
+
+        const response = await User.updateOne({ _id: id }, { $push: { watchlist: { $each: [movieId] } } });
+
+        res.status(200).json(response);
+    } catch (err) {
+        next(err);
+    }
+}
+
+const getFavoritesAndWatchlist = async (req, res, next) => {
+    const { id } = req.params;
+
+    if (req.user.id != id) next(errorHandler(403, "Sorry mate login to your own account to see your reactions"));
+
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            next(errorHandler(404, "Sorry user not found"));
+            return;
+        }
+
+        const { favoriteMovies, watchlist } = user._doc;
+
+        res.status(200).json({ favoriteMovies, watchlist });
+    } catch (err) {
+        next(err);
+    }
+}
+
 export {
     updateUser,
     deleteUser,
-    addToFavorites
+    addToFavorites,
+    addToWatchlist,
+    getFavoritesAndWatchlist
 }

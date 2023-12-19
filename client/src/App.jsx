@@ -2,7 +2,8 @@ import { Routes, Route } from "react-router-dom"
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 import ReactionModal from "./components/ReactionModal"
-import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies, MovieInfo, ActorInfo, LogIn, SignUp, Profile, PrivateRoutes } from "./pages/pages"
+import AuthModal from "./components/AuthModal"
+import { Actors, AllActors, AllPopular, AllUpcoming, Home, SearchedActor, SearchedMovie, SearchedMovieIndex, GenreMovies, MovieInfo, ActorInfo, LogIn, SignUp, Profile, PrivateRoutes, Favorites, Watchlist } from "./pages/pages"
 import { useSelector } from "react-redux"
 
 const App = () => {
@@ -17,7 +18,10 @@ const App = () => {
         favoritesModal.open && <ReactionModal message={favoritesModal.message} />
       }
       {
-        watchlistModal.open && <ReactionModal message={favoritesModal.message} />
+        watchlistModal.open && <ReactionModal message={watchlistModal.message} />
+      }
+      {
+        authModal.open && <AuthModal message={authModal.message} />
       }
 
       <div className="flex-1 flex flex-col">
@@ -31,6 +35,8 @@ const App = () => {
             <Route element={<PrivateRoutes />} >
               <Route path="/profile" element={<Profile />} />
             </Route>
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/popularMovies" element={<AllPopular />} />
             <Route path="/upcomingMovies" element={<AllUpcoming />} />
             <Route path="/actors" element={<Actors />} >
@@ -41,7 +47,7 @@ const App = () => {
               <Route index element={<SearchedMovieIndex />} />
               <Route path="moviebyGenre/:genreId/:genreName" element={<GenreMovies />} />
             </Route>
-            <Route path="/movieInfo/:movieId" element={<MovieInfo />} />
+            <Route path="/movieInfo/:movieId" element={<MovieInfo />} /> 
             <Route path="/actorInfo/:actorId" element={<ActorInfo />} />
           </Routes>
         </div>

@@ -13,6 +13,8 @@ import SignUp from "./SignUp";
 import LogIn from "./LogIn";
 import Profile from "./Profile"
 import PrivateRoutes from "./PrivateRoutes";
+import Favorites from "./Favorites";
+import Watchlist from "./Watchlist";
 
 export {
     Home,
@@ -29,5 +31,7 @@ export {
     SignUp,
     LogIn,
     Profile,
-    PrivateRoutes
+    PrivateRoutes,
+    Favorites,
+    Watchlist
 }

@@ -6,7 +6,8 @@ import { BiSolidCameraMovie, BiSolidHome, BiSearch } from "react-icons/bi"
 import { TiGroup } from "react-icons/ti"
 import { SiThemoviedatabase } from "react-icons/si"
 import { RiCloseLine } from "react-icons/ri"
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai"
+import { FaHeart, FaBookmark } from "react-icons/fa"
 
 const links = [
   { name: "Home", to: "/", icon: BiSolidHome },
@@ -14,6 +15,8 @@ const links = [
   { name: "Popular movies", to: "/popularMovies", icon: HiStar },
   { name: "Upcoming movies", to: "/upcomingMovies", icon: BiSolidCameraMovie },
   { name: "Actors", to: "/actors", icon: TiGroup },
+  { name: "Favorites", to:"/favorites", icon: FaHeart },
+  { name: "Watchlist", to:"/watchlist", icon: FaBookmark },
   { name: "Github", to: "https://github.com/nguHelon/movieApp2.0", icon: AiFillGithub },
 ]
 
@@ -26,7 +29,7 @@ const NavLinks = ({ handleClick }) => {
             <NavLink
               key={link.name}
               to={link.to}
-              className={({isActive}) => `flex items-center justify-start text-sm font-medium my-8 text-gray-400 hover:text-mainorange ${ isActive ? "text-mainorange" : ""}`}
+              className={({isActive}) => `flex items-center justify-start text-sm font-medium my-5 text-gray-400 hover:text-mainorange ${ isActive ? "text-mainorange" : ""}`}
               onClick={() => {
                 handleClick && handleClick();
               }}

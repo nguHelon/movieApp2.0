@@ -7,7 +7,7 @@ import Loader from "../components/Loader"
 import MovieCast from "../components/MovieCast"
 import MovieRecommendation from "../components/MovieRecommendation"
 import MoreMovieInfo from "../components/MoreMovieInfo"
-import { addedToFavorite, addedToWatchlist, auth, favoriteClose } from "../store/services/modalsSlice"
+import { addedToFavorite, addedToWatchlist, auth, favoriteClose, watchListClose } from "../store/services/modalsSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 const MovieTrailer = ({ setShowTrailer }) => {
@@ -55,6 +55,11 @@ const MovieInfo = () => {
 
   const addToFavorites = async () => {
     try {
+        if (currentUser == null) {
+            dispatch(auth("Please Sign Up or Log In to add trailers to your favorites"));
+            return;
+        }
+
         const response = await fetch(`/api/user/addtofavorites/${currentUser._id}/${movieId}`, {
             method: "POST",
             headers: {
@@ -64,16 +69,54 @@ const MovieInfo = () => {
 
         const data = await response.json();
 
-        if (data.movie == movieId) {
-            return dispatch(addedToFavorite("Already added to favorites ❌"));
+        if (data == movieId) {
+            dispatch(addedToFavorite("Already added to favorites ❌"));
+            setTimeout(() => {
+                dispatch(favoriteClose());
+            }, 5000);
+            return;
         }
-        
+
         dispatch(addedToFavorite("Added to favorites successfully ✅"));
 
         setTimeout(() => {
             dispatch(favoriteClose());
-        }, 5000)
-        console.log(data);
+        }, 5000);
+    } catch (err) {
+        console.log(err);
+    }
+  }
+
+  const addToWatchlist = async () => {
+    try {
+        
+        if (currentUser == null) {
+            dispatch(auth("please Sign Up or Log In to add trailers to your watchlist"));
+            return;
+        }
+
+        const response = await fetch(`/api/user/addtowatchlist/${currentUser._id}/${movieId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+
+        const data = await response.json();
+
+        if (data == movieId) {
+            dispatch(addedToWatchlist("Already added to watchlist ❌"));
+            setTimeout(() => {
+                dispatch(watchListClose());
+            }, 5000);
+            return;
+        }
+
+        dispatch(addedToWatchlist("Added to watchlist successfully ✅"));
+
+        setTimeout(() => {
+            dispatch(watchListClose());
+        }, 5000);
     } catch (err) {
         console.log(err);
     }
@@ -117,6 +160,7 @@ const MovieInfo = () => {
                             <FaHeart />    
                         </button>
                         <button
+                            onClick={addToWatchlist}
                             className="p-3 rounded-full bg-secondaryGray text-white"
                         >
                             <FaBookmark />    
