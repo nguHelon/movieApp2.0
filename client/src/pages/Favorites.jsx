@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AuthCheck from "../components/AuthCheck";
 import { useSelector } from "react-redux";
+import MovieCard from "../components/MovieCard";
 
 const Body = () => {
     const { currentUser } = useSelector((state) => state.user);
@@ -24,7 +25,7 @@ const Body = () => {
 
     useEffect(() => {
         try{
-            const userFavoriteMovies = userReactions.favoriteMovies.map( async (movieId) => {
+            userReactions.favoriteMovies?.forEach( async (movieId) => {
                 const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?language=en-US`, {
                     method: "GET",
                     headers: {
@@ -33,22 +34,30 @@ const Body = () => {
                 })
 
                 const movieDetail = await response.json();
-                return movieDetail;
-            })
+                setFavoriteMovies([...favoriteMovies, movieDetail]);
+            });
 
-            setFavoriteMovies(userFavoriteMovies);
         } catch (err) {
             console.log(err);
         }
     }, [userReactions]);
 
-    console.log(userReactions);
-    console.log(favoriteMovies);
-
     return (
-        <div className="w-full">
-            <h1>Your Favorite Movies</h1>
-            <div className="w-full"></div>
+        <div className="w-full text-center">
+            <h1 className="text-2xl text-lightGray2 my-10">Your Favorite Movies</h1>
+            <div className="w-full flex flex-wrap justify-center gap-3">
+                {
+                    favoriteMovies.map((movie) => (
+                        <MovieCard 
+                            key={movie.id}
+                            movieId={movie.id}
+                            movieName={movie.original_title}
+                            backdropPath={movie.backdrop_path}
+                            releaseDate={movie.release_date}
+                        />
+                    ))
+                }
+            </div>
         </div>
     )
 }
