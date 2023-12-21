@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { BsFillPlayFill } from "react-icons/bs"
 import { FaTimes, FaHeart, FaBookmark } from "react-icons/fa"
@@ -52,6 +52,26 @@ const MovieInfo = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [ showTrailer, setShowTrailer ] = useState(false);
   const { data, isFetching } = useGetMovieDetailQuery({ movieId });
+  const [ userReactions, setUserReactions] = useState({ isMovieLiked: false, isPartOfWatchlist: false});
+
+  useEffect(() => {
+    const getUserReactions = async () => {
+        try {
+            const response = await fetch(`/api/user/getfavoritesandwatchlist/${currentUser._id}`);
+            const data = await response.json();
+
+            if (data.favoriteMovies.includes(movieId)) {
+                setUserReactions({ ...userReactions, isMovieLiked: true});
+            } else if (data.watchlist.includes(movieId)) {
+                setUserReactions({ ...userReactions, isPartOfWatchlist: true});
+            }
+        } catch (err) {
+            console.log();
+        }
+    }
+
+    getUserReactions();
+  }, []);
 
   const addToFavorites = async () => {
     try {
@@ -69,8 +89,9 @@ const MovieInfo = () => {
 
         const data = await response.json();
 
-        if (data == movieId) {
-            dispatch(addedToFavorite("Already added to favorites ❌"));
+        if (data.isLiked == false) {
+            dispatch(addedToFavorite("Removed from favorites successfully ✅"));
+            setUserReactions({ ...userReactions, isMovieLiked: false})
             setTimeout(() => {
                 dispatch(favoriteClose());
             }, 5000);
@@ -78,6 +99,7 @@ const MovieInfo = () => {
         }
 
         dispatch(addedToFavorite("Added to favorites successfully ✅"));
+        setUserReactions({ ...userReactions, isMovieLiked: true});
 
         setTimeout(() => {
             dispatch(favoriteClose());
@@ -104,8 +126,9 @@ const MovieInfo = () => {
 
         const data = await response.json();
 
-        if (data == movieId) {
-            dispatch(addedToWatchlist("Already added to watchlist ❌"));
+        if (data.partOfWatchlist == false) {
+            dispatch(addedToWatchlist("Removed from watchlist successfully ✅"));
+            setUserReactions({ ...userReactions, isPartOfWatchlist: false});
             setTimeout(() => {
                 dispatch(watchListClose());
             }, 5000);
@@ -113,6 +136,7 @@ const MovieInfo = () => {
         }
 
         dispatch(addedToWatchlist("Added to watchlist successfully ✅"));
+        setUserReactions({ ...userReactions, isPartOfWatchlist: true});
 
         setTimeout(() => {
             dispatch(watchListClose());
@@ -155,13 +179,13 @@ const MovieInfo = () => {
                         </button>
                         <button
                             onClick={addToFavorites}
-                            className="p-3 rounded-full bg-secondaryGray text-red-500"
+                            className={`p-3 rounded-full bg-secondaryGray ${ userReactions.isMovieLiked ? "text-red-500" : "text-white"}`}
                         >
                             <FaHeart />    
                         </button>
                         <button
                             onClick={addToWatchlist}
-                            className="p-3 rounded-full bg-secondaryGray text-white"
+                            className={`p-3 rounded-full bg-secondaryGray ${ userReactions.isPartOfWatchlist ? "text-green-700" : "text-white"}`}
                         >
                             <FaBookmark />    
                         </button>              

@@ -15,7 +15,7 @@ const AuthModal = ({ message }) => {
         <div className="w-full flex justify-center mb-3">
             <img src={auth} alt="auth img" className="h-24 w-24" />
         </div>
-        <p>{message}</p>
+        <p className="text-lightGray2 my-5">{message}</p>
         <div className="w-100 flex p-4 space-x-3 justify-center items-center">
             <Link
                 to="/sign-up"

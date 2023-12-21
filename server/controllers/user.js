@@ -48,8 +48,10 @@ const addToFavorites = async (req, res, next) => {
 
         const movie = favoriteMovies.find((movie) => movieId == movie);
 
+        // responsible for removing a movieId from the array
         if (movie) {
-            res.status(200).json(movie);
+            const response = await User.updateOne({ _id: id }, { $pull: { favoriteMovies: movieId } });
+            res.status(200).json({ ...response, isLiked: false });
             return;
         }
 
@@ -73,7 +75,8 @@ const addToWatchlist = async (req, res, next) => {
         const movie = watchlist.find((movie) => movieId == movie);
 
         if (movie) {
-            res.status(200).json(movie);
+            const response = await User.updateOne({ _id: id }, { $pull: { watchlist: movieId } });
+            res.status(200).json({ ...response, partOfWatchlist: false });
             return;
         }
 
