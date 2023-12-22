@@ -32,7 +32,7 @@ const Header = () => {
               Log In
             </Link>
           </div> :
-          <div className="h-[40px] w-40px]">
+          <div className="h-[40px] w-[40px]">
             <Link to="/profile">
               <img src={user.currentUser.avatar} alt="user profile" className="w-full h-full rounded-full"/>
             </Link>

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, logOutFailure, logOutStart, logOutSuccessfull, updateFailed, updateStart, updateSuccess } from "../store/services/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 // import FileBase from "react-file-base64";
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const imageRef = useRef(null);
   const [userUpdated, setUserUpdated] = useState(false)
   const { loading, error, currentUser } = useSelector((state) => state.user);
   const [userData, setUserData] = useState({
@@ -59,7 +60,7 @@ const Profile = () => {
             return;
         }
 
-        dispatch(logOutSuccessfull());        
+        dispatch(logOutSuccessfull());
     } catch (err) {
         dispatch(logOutFailure(err));
     }
@@ -83,14 +84,51 @@ const Profile = () => {
     }
   }
 
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+            reject(error);
+        }
+    })
+  }
+
+  const imageConversion = async (e) => {
+    const file = e.target.files[0];
+    const base64Image = await convertToBase64(file);
+    
+    setUserData({ ...userData, avatar: base64Image});
+  }
+
   return (
     <div className="w-full h-full flex justify-center items-center">
         <div className="w-10/12 space-y-2 md:w-2/5">
             <form onSubmit={handleSubmit} className="w-full flex flex-col space-y-2">
                 <div className="w-full h-auto flex flex-col items-center justify-center">
-                    <img src={currentUser.avatar} alt="profile picture" className="h-[100px] w-[100px] rounded-full mb-5" />
-                    <p className="text-lightGray2 text-lg">{currentUser.username}</p>
-                </div>           
+                    <img src={userData.avatar || currentUser.avatar} alt="profile picture" className="h-[100px] w-[100px] rounded-full mb-5" />
+                    <p className="text-lightGray2 text-2xl font-semibold uppercase">{currentUser.username}</p>
+                    <button
+                        type="button"
+                        className=" rounded-s-full rounded-e-full bg-mainorange text-black font-semibold text-sm px-3 py-1"
+                        onClick={() => {
+                            imageRef.current.click();
+                        }}
+                    >
+                        Change Image
+                    </button>
+                </div>
+                <input
+                    ref={imageRef}
+                    onChange={imageConversion}
+                    type="file" 
+                    name="avatar"
+                    accept="image/*"
+                    hidden
+                />
                 <input
                     type="text" 
                     placeholder="your full name" 

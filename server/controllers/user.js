@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 
 const updateUser = async (req, res, next) => {
     const { id } = req.params;
-    let { username, password, email } = req.body;
+    let { username, password, email, avatar } = req.body;
 
     if (req.user.id != id) {
         next(errorHandler(403, "You are not allowed to update another user"));
@@ -15,7 +15,7 @@ const updateUser = async (req, res, next) => {
             password = bcryptjs.hashSync(password, 10);
         }
 
-        const updatedUser = await User.findByIdAndUpdate(id, { username, password, email }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, { username, password, email, avatar }, { new: true });
 
         const { password: pass, ...rest } = updatedUser._doc;
 
