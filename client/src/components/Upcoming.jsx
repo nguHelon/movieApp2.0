@@ -17,7 +17,7 @@ const Upcoming = () => {
             </div>
             <h1 className="text-sm text-lightGray2">All Upcoming Movies</h1>
         </div>
-        <div className=" flex flex-wrap justify-center gap-3">
+        <div className=" flex flex-wrap justify-center">
             {
                 data?.results?.slice(0, 5).map(movie => {
                     if (movie.backdrop_path) return <MovieCard 

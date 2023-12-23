@@ -56,7 +56,7 @@ const Body = () => {
 
     return (
         <div className="w-full text-center">
-            <h1 className="text-2xl text-lightGray2 my-10">Your Favorite Movies</h1>
+            <h1 className="text-2xl text-lightGray2 my-10">Your Watchlist</h1>
             <div className="w-full flex flex-wrap justify-center gap-3">
                 {
                     watchlist?.map((movie) => (
