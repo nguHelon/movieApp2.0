@@ -7,7 +7,7 @@ import Loader from "../components/Loader"
 import MovieCast from "../components/MovieCast"
 import MovieRecommendation from "../components/MovieRecommendation"
 import MoreMovieInfo from "../components/MoreMovieInfo"
-import { addedToFavorite, addedToWatchlist, auth, favoriteClose, watchListClose } from "../store/services/modalsSlice"
+import { addedToFavorite, addedToWatchlist, addingToFavorite, addingToWatchlist, auth, favoriteClose, watchListClose } from "../store/services/modalsSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 const MovieTrailer = ({ setShowTrailer }) => {
@@ -80,6 +80,8 @@ const MovieInfo = () => {
             return;
         }
 
+        dispatch(addingToFavorite("Loading..."));
+
         const response = await fetch(`/api/user/addtofavorites/${currentUser._id}/${movieId}`, {
             method: "POST",
             headers: {
@@ -116,6 +118,8 @@ const MovieInfo = () => {
             dispatch(auth("please Sign Up or Log In to add trailers to your watchlist"));
             return;
         }
+
+        dispatch(addingToWatchlist("Loading..."));
 
         const response = await fetch(`/api/user/addtowatchlist/${currentUser._id}/${movieId}`, {
             method: "POST",

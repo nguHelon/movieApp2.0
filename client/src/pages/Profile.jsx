@@ -8,12 +8,7 @@ const Profile = () => {
   const imageRef = useRef(null);
   const [userUpdated, setUserUpdated] = useState(false)
   const { loading, error, currentUser } = useSelector((state) => state.user);
-  const [userData, setUserData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    avatar: ""
-  })
+  const [userData, setUserData] = useState({})
 
   const handleInputChange = (e) => {
     setUserData((prevData) => {
@@ -118,7 +113,7 @@ const Profile = () => {
                             imageRef.current.click();
                         }}
                     >
-                        Change Image
+                        Change Photo
                     </button>
                 </div>
                 <input
@@ -134,7 +129,6 @@ const Profile = () => {
                     placeholder="your full name" 
                     name="username"                
                     onChange={handleInputChange}
-                    required
                     className="px-2 py-2 w-full bg-secondaryGray text-white outline-none rounded-lg border border-1 border-gray-600"
                 />
                 <input 
@@ -142,7 +136,6 @@ const Profile = () => {
                     placeholder="New password" 
                     name="password"                
                     onChange={handleInputChange}
-                    required
                     className="px-2 py-2 w-full bg-secondaryGray text-white outline-none rounded-lg border border-1 border-gray-600"
                 />
                 <input
@@ -150,7 +143,6 @@ const Profile = () => {
                     placeholder="email"
                     name="email"                
                     onChange={handleInputChange}
-                    required
                     className="px-2 py-2 w-full bg-secondaryGray text-white outline-none rounded-lg border border-1 border-gray-600"
                 />
                 {/* <FileBase 

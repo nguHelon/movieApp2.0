@@ -15,7 +15,14 @@ const updateUser = async (req, res, next) => {
             password = bcryptjs.hashSync(password, 10);
         }
 
-        const updatedUser = await User.findByIdAndUpdate(id, { username, password, email, avatar }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            $set: {
+                username,
+                password,
+                email,
+                avatar
+            }
+        }, { new: true });
 
         const { password: pass, ...rest } = updatedUser._doc;
 
@@ -26,7 +33,7 @@ const updateUser = async (req, res, next) => {
 }
 
 const deleteUser = async (req, res, next) => {
-    if (req.user.id == req.params.id) next(errorHandler(403, "You are not allowed to delete another user"));
+    if (req.user.id !== req.params.id) next(errorHandler(403, "You are not allowed to delete another user"));
 
     try {
         await User.findByIdAndDelete(req.params.id);

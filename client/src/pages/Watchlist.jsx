@@ -60,7 +60,7 @@ const Body = () => {
             <div className="w-full flex flex-wrap justify-center gap-3">
                 {
                     watchlist?.map((movie) => (
-                        <MovieCard 
+                        <MovieCard
                             key={movie.id}
                             movieId={movie.id}
                             movieName={movie.original_title}

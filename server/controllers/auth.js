@@ -54,7 +54,7 @@ const logIn = async (req, res, next) => {
 }
 
 const googleSignIn = async (req, res, next) => {
-    const { displayName: username, email, photoUrl: avatar } = req.body;
+    const { displayName: username, email, photoURL: avatar } = req.body;
 
     try {
         const user = await User.findOne({ email });
