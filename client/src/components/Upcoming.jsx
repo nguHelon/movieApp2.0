@@ -25,7 +25,7 @@ const Upcoming = () => {
                         movieId={movie.id}
                         movieName={movie.original_title}
                         releaseDate={movie.release_date}
-                        backdropPath={movie.backdrop_path}
+                        backdropPath={movie.backdrop_path}                    
                     />
                 })
             }

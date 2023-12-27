@@ -21,6 +21,7 @@ const AllPopular = () => {
                         releaseDate={movie.release_date}
                         movieName={movie.original_title}
                         backdropPath={movie.backdrop_path}
+                        loading={isFetching}
                     />
                 })
             }
