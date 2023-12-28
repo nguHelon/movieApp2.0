@@ -1,14 +1,24 @@
 import { Link } from "react-router-dom"
 import { useGetPopularMoviesQuery } from "../store/services/tmdbAPI"
 import PeopleList from "./PeopleList"
+import { useState } from "react"
+import { black } from "../assets"
 
 const MovieInfo = ({ movieId, index, movieName, releaseDate, posterPath }) => {
+    const [imgLoading, setImgLoading] = useState(true);
+
     return (
         <div className="w-full flex items-center justify-start p-2 rounded-lg bg-secondaryGray hover:border hover:border-lightGray1">
             <h3 className="text-lightGray2 font-bold mr-2">{index + 1}.</h3>
             <div className="flex-1 flex justify-between items-center">
                 <div className="flex items-center">
-                    <img src={`https://image.tmdb.org/t/p/original${posterPath}`} alt="" className="flex-none h-[50px] w-[50px] rounded-xl md:h-[60px] md:w-[70px]" />
+                    <img 
+                        src={imgLoading ? black : `https://image.tmdb.org/t/p/original${posterPath}`} alt="" 
+                        className="flex-none h-[50px] w-[50px] rounded-xl md:h-[60px] md:w-[70px]" 
+                        onLoad={() => {
+                            setImgLoading(false);
+                        }}
+                    />
                     <div className="flex flex-col ml-2">
                         <h1 className="font-bold text-white text-sm md:text-xl">{movieName.length > 18 ? movieName.substring(0, 18) + "..." : movieName}</h1>
                         <h3 className="font-semibold text-lightGray2 text-xs">{releaseDate}</h3>

@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
 import { useGetActorsQuery } from "../store/services/tmdbAPI"
+import { useState } from "react";
+import { black } from "../assets";
 
 const PeopleList = () => {
   const { data } = useGetActorsQuery();
+  const [imgLoading, setImgLoading] = useState(true);
 
   return (
     <div className="flex flex-col">
@@ -18,7 +21,12 @@ const PeopleList = () => {
                             key={actor.id}
                             to={`/actorInfo/${actor.id}`}
                         >
-                            <img src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} alt="" className="h-[70px] w-[70px] rounded-full md:h-[100px] md:w-[100px]" />
+                            <img 
+                                src={imgLoading ? black : `https://image.tmdb.org/t/p/original${actor.profile_path}`} alt="" className="h-[70px] w-[70px] rounded-full md:h-[100px] md:w-[100px]"
+                                onLoad={() => {
+                                    setImgLoading(false);
+                                }}
+                            />
                         </Link>
                     )
                 })

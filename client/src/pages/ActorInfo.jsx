@@ -1,10 +1,13 @@
 import { Link, useParams } from "react-router-dom"
 import { useGetActorDetailQuery, useGetActorCreditsQuery } from "../store/services/tmdbAPI"
 import Loader from "../components/Loader";
+import { useState } from "react";
+import { black } from "../assets";
 
 const ActorCredits = () => {
     const { actorId } = useParams();
     const { data } = useGetActorCreditsQuery({ actorId });
+    const [imgLoading, setImgLoading] = useState(true);
 
     const limitedData = data?.cast?.length > 16 ? data?.cast?.slice(0, 16).reverse() : data?.cast;
 
@@ -15,7 +18,14 @@ const ActorCredits = () => {
                     return (
                         <Link key={movie?.id} to={`/movieInfo/${movie?.id}`}>
                             <div className="flex-none w-[200px] flex flex-col justify-center items-center space-y-1">
-                                <img src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`} alt="" className="w-full rounded-lg" />
+                                <img 
+                                    src={imgLoading ? black : `https://image.tmdb.org/t/p/original${movie?.poster_path}`} 
+                                    className="w-full h-[300px] rounded-lg"
+                                    onLoad={() => {
+                                        setImgLoading(false);
+                                    }}
+                                    alt="" 
+                                />
                                 <div className="text-lightGray2 font-medium text-sm">{movie?.original_title}</div>
                             </div>
                         </Link>
@@ -29,6 +39,7 @@ const ActorCredits = () => {
 const ActorInfo = () => {
   const { actorId } = useParams();
   const { data, isFetching } = useGetActorDetailQuery({ actorId });
+  const [imgLoading, setImgLoading] = useState(true);
   const currentYear = new Date();
 
   if (isFetching) return <Loader title="Loading actor Details" />
@@ -36,7 +47,12 @@ const ActorInfo = () => {
   return (
     <div className="w-full flex flex-col md:flex-row items-start space-x-4 py-4">
         <div className="w-full md:w-3/12 h-auto flex flex-col justify-center items-center space-x-3 ss:flex-row md:space-x-0 md:flex-col">
-            <img src={`https://image.tmdb.org/t/p/original${data?.profile_path}`} alt="" className="rounded-lg shadow-lg shadow-black/50 mb-3 w-[300px] flex-1" />
+            <img 
+                src={imgLoading ? black : `https://image.tmdb.org/t/p/original${data?.profile_path}`} alt="" className="rounded-lg shadow-lg shadow-black/50 mb-3 w-[300px] flex-1"
+                onLoad={() => {
+                    setImgLoading(false);
+                }}
+            />
             <div className="w-full text-center md:text-left flex flex-col justify-center items-center md:items-start">
                 <h1 className="text-white font-semibold text-2xl mb-4">Personal Info</h1>
                 <div className="w-full  flex flex-col justify-center items-center space-y-3 md:justify-start md:items-start">

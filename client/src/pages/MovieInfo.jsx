@@ -9,6 +9,7 @@ import MovieRecommendation from "../components/MovieRecommendation"
 import MoreMovieInfo from "../components/MoreMovieInfo"
 import { addedToFavorite, addedToWatchlist, addingToFavorite, addingToWatchlist, auth, favoriteClose, watchListClose } from "../store/services/modalsSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { black } from "../assets"
 
 const MovieTrailer = ({ setShowTrailer }) => {
     const { movieId } = useParams();
@@ -53,6 +54,7 @@ const MovieInfo = () => {
   const [ showTrailer, setShowTrailer ] = useState(false);
   const { data, isFetching } = useGetMovieDetailQuery({ movieId });
   const [ userReactions, setUserReactions] = useState({ isMovieLiked: false, isPartOfWatchlist: false});
+  const [imgLoading, setImgLoading] = useState(true);
 
   useEffect(() => {
     const getUserReactions = async () => {
@@ -157,7 +159,13 @@ const MovieInfo = () => {
         <div className={`bg-[url("https://image.tmdb.org/t/p/original${data?.backdrop_path}")] bg-cover bg-center w-full`}>
             <div className="bg-gradient-to-r from-black/60 to-black/60 z-10 w-full flex flex-col items-center space-y-4 py-10 px-3 md:space-x-4 md:space-y-0 md:px-8 md:flex-row ">
                 <div className="max-w-[200px] md:max-w-[300px] h-auto">
-                    <img src={`https://image.tmdb.org/t/p/original${data?.poster_path}`} alt={``} className="w-full h-auto rounded-lg" />
+                    <img 
+                        src={imgLoading ? black : `https://image.tmdb.org/t/p/original${data?.poster_path}`} alt={``} 
+                        className={`w-full ${imgLoading ? "h-[450px]" : "h-auto"} rounded-lg`} 
+                        onLoad={() => {
+                            setImgLoading(false);
+                        }}
+                    />
                 </div>
                 <div className="flex-1 text-center md:text-left">
                     <div className="mb-5">
