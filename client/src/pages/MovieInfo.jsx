@@ -73,7 +73,7 @@ const MovieInfo = () => {
     }
 
     getUserReactions();
-  }, []);
+  }, [data]);
 
   const addToFavorites = async () => {
     try {

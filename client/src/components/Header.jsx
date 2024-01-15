@@ -9,8 +9,8 @@ const Header = () => {
     <div className="w-full flex justify-between items-center px-3 py-2 bg-secondaryGray border-b border-lightGray1">
       <Link to="/">
         <div className="flex justify-start items-center">
-          <img src={logo} alt="" className="h-10 w-10 mr-2" />
-          <span className="text-xl text-mainorange font-bold md:text-3xl">
+          <img src={logo} alt="" className="h-5 w-5 mr-2" />
+          <span className="text-sm text-mainorange font-bold md:text-3xl">
             MovieApp
           </span>
         </div>
@@ -21,13 +21,13 @@ const Header = () => {
           <div className="flex space-x-2">
             <Link
               to="/sign-up"
-              className="px-3 py-1 font-medium text-md flex items-center justify-between rounded-md bg-mainorange"
+              className="px-3 py-1 font-medium text-sm flex items-center justify-between rounded-md bg-mainorange md:text-base"
             >
               Sign Up
             </Link>
             <Link
               to="/log-in"
-              className="px-3 py-1 font-medium text-md text-mainorange flex items-center justify-between rounded-md bg-black"
+              className="px-3 py-1 font-medium text-sm text-mainorange flex items-center justify-between rounded-md bg-black md:text-base"
             >
               Log In
             </Link>
