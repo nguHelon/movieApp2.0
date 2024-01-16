@@ -13,7 +13,14 @@ const MovieRecommendation = () => {
         {
             data?.results?.slice(0, 12).map(movie => {
                 if (movie.backdrop_path) return (
-                    <Link key={movie.id} to={`/movieInfo/${movie.id}`}>
+                    <Link 
+                        key={movie.id} to={`/movieInfo/${movie.id}`}
+                        onClick={() => {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 4000)
+                        }}
+                    >
                         <div className="flex-none w-[300px] h-[230px]">
                             <div className="w-full h-4/5">
                                 <img 
@@ -22,7 +29,7 @@ const MovieRecommendation = () => {
                                     className="w-full h-full rounded-xl"
                                     onLoad={() => {
                                         setImgLoading(false);
-                                    }}
+                                    }}                                    
                                 />
                             </div>
                             <div className="w-full flex justify-between items-center mt-2">
