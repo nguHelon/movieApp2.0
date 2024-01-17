@@ -3,13 +3,16 @@ import { app } from "../firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUpSuccess } from "../store/services/userSlice";
+import { useState } from "react";
 
 const OAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ loading, setLoading ] = useState(false);
 
   const handleSubmit = async () => {
     try {
+        setLoading(true);
         const provider = new GoogleAuthProvider();
         const auth = getAuth(app);
 
@@ -36,6 +39,7 @@ const OAuth = () => {
         onClick={handleSubmit}
         type="button"
         className={`text-center py-2 bg-red-700 text-white rounded-lg font-medium fs-3 cursor-pointer`}
+        disabled={loading}
     >
         continue with google
     </button>

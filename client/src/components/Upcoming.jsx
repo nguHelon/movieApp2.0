@@ -1,6 +1,7 @@
 import MovieCard from "./MovieCard"
 import { useGetUpcomingMoviesQuery } from "../store/services/tmdbAPI"
 import Loader from "./Loader";
+import { Link } from "react-router-dom";
 
 const Upcoming = () => {
   const { data, isFetching} = useGetUpcomingMoviesQuery();
@@ -15,7 +16,9 @@ const Upcoming = () => {
                 <div className="w-[1px] h-[20px] bg-lightGray2 mx-2"></div>
                 <span className="text-md text-lightGray2">trailers</span>
             </div>
-            <h1 className="text-sm text-lightGray2">All Upcoming Movies</h1>
+            <Link to="/upcomingMovies">
+                <h1 className="text-sm text-lightGray2">All Upcoming Movies</h1>
+            </Link>
         </div>
         <div className=" flex flex-wrap justify-center">
             {

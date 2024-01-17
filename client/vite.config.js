@@ -6,8 +6,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
-        secure: false
+        target: "https://movie-app2-0-lubv9qbyk-nguhelons-projects.vercel.app",
+        changeOrigin: true,
+        secure: true
       }
     }
   },
