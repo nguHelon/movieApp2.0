@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
 const SignUp = () => {
+    const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL || "http://localhost:5000";
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ const SignUp = () => {
 
     try {
         setLoading(true);
-        const response = await fetch("/api/auth/signup", {
+        const response = await fetch(`${backendURL}/api/auth/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

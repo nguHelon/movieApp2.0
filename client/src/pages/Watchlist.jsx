@@ -9,11 +9,12 @@ const Body = () => {
     const [loading, setLoading] = useState(false);
     const [userReactions, setUserReactions] = useState({});
     const [watchlist, setWatchlist] = useState([]);
+    const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL || "http://localhost:5000";
 
     useEffect(() => {
         const getUserReactions = async () => {
             try {
-                const response = await fetch(`/api/user/getfavoritesandwatchlist/${currentUser._id}`);
+                const response = await fetch(`${backendURL}/api/user/getfavoritesandwatchlist/${currentUser._id}`);
 
                 const userReactions = await response.json();
                 setUserReactions(userReactions);

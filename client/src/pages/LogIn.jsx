@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
 const LogIn = () => {
+    const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.user);
@@ -26,7 +27,7 @@ const LogIn = () => {
 
         try {
             dispatch(logInStart());
-            const response = await fetch("/api/auth/login", {
+            const response = await fetch(`${backendURL}/api/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

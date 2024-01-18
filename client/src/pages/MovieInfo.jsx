@@ -55,11 +55,12 @@ const MovieInfo = () => {
     const { data, isFetching } = useGetMovieDetailQuery({ movieId });
     const [userReactions, setUserReactions] = useState({ isMovieLiked: false, isPartOfWatchlist: false });
     const [imgLoading, setImgLoading] = useState(true);
+    const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL || "http://localhost:5000";
 
     useEffect(() => {
         const getUserReactions = async () => {
             try {
-                const response = await fetch(`/api/user/getfavoritesandwatchlist/${currentUser._id}`);
+                const response = await fetch(`${backendURL}/api/user/getfavoritesandwatchlist/${currentUser._id}`);
                 const data = await response.json();
 
                 if (data.favoriteMovies.includes(movieId)) {
@@ -84,7 +85,7 @@ const MovieInfo = () => {
 
             dispatch(addingToFavorite("Loading..."));
 
-            const response = await fetch(`/api/user/addtofavorites/${currentUser._id}/${movieId}`, {
+            const response = await fetch(`${backendURL}/api/user/addtofavorites/${currentUser._id}/${movieId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -123,7 +124,7 @@ const MovieInfo = () => {
 
             dispatch(addingToWatchlist("Loading..."));
 
-            const response = await fetch(`/api/user/addtowatchlist/${currentUser._id}/${movieId}`, {
+            const response = await fetch(`${backendURL}/api/user/addtowatchlist/${currentUser._id}/${movieId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

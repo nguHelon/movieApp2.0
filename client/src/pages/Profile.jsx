@@ -6,9 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 const Profile = () => {
   const dispatch = useDispatch();
   const imageRef = useRef(null);
-  const [userUpdated, setUserUpdated] = useState(false)
+  const [userUpdated, setUserUpdated] = useState(false);
   const { loading, error, currentUser } = useSelector((state) => state.user);
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
+  const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL || "http://localhost:5000";
 
   const handleInputChange = (e) => {
     setUserData((prevData) => {
@@ -16,12 +17,14 @@ const Profile = () => {
     });
   }
 
+  console.log(backendURL);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
         dispatch(updateStart())
-        const response = await fetch(`/api/user/update/${currentUser._id}`, {
+        const response = await fetch(`${backendURL}/api/user/update/${currentUser._id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -46,7 +49,7 @@ const Profile = () => {
   const handleLogOut = async () => {
     try {
         dispatch(logOutStart());
-        const response = await fetch(`/api/auth/logout`);
+        const response = await fetch(`${backendURL}/auth/logout`);
 
         const data = await response.json();
 
@@ -64,7 +67,7 @@ const Profile = () => {
   const deleteUser = async () => {
     try {
         dispatch(deleteUserStart());
-        const response = await fetch(`/api/user/delete/${currentUser._id}`);
+        const response = await fetch(`${backendURL}/user/delete/${currentUser._id}`);
 
         const data = await response.json();
 

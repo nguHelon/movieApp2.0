@@ -10,6 +10,8 @@ const OAuth = () => {
   const navigate = useNavigate();
   const [ loading, setLoading ] = useState(false);
 
+  const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL || "http://localhost:5000";
+
   const handleSubmit = async () => {
     try {
         setLoading(true);
@@ -18,7 +20,7 @@ const OAuth = () => {
 
         const result = await signInWithPopup(auth, provider);
 
-        const response = await fetch("/api/auth/google", {
+        const response = await fetch(`${backendURL}/api/auth/google`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
