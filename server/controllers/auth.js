@@ -3,6 +3,12 @@ import errorHandler from "../utils/errorHandler.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken"
 
+const cookieOptions = {
+    HttpOnly: true,
+    secure: true,
+    domain: "https://hcmovieapp.netlify.app/"
+}
+
 const signUp = async (req, res, next) => {
     const { password, ...userData } = req.body;
     const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -45,7 +51,7 @@ const logIn = async (req, res, next) => {
         const { password: pass, ...userData } = user._doc;
 
         res
-            .cookie("access_token", token)
+            .cookie("access_token", token, cookieOptions)
             .status(200)
             .json(userData);
     } catch (err) {
@@ -64,7 +70,7 @@ const googleSignIn = async (req, res, next) => {
             const { password: pass, ...userData } = user._doc;
 
             res
-                .cookie("access_token", token)
+                .cookie("access_token", token, cookieOptions)
                 .status(200)
                 .json(userData);
         } else {
@@ -78,7 +84,7 @@ const googleSignIn = async (req, res, next) => {
             const { password: pass, ...userData } = newUser._doc;
 
             res
-                .cookie("access_token", token)
+                .cookie("access_token", token, cookieOptions)
                 .status(200)
                 .json(userData);
         }
