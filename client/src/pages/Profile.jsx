@@ -17,8 +17,6 @@ const Profile = () => {
     });
   }
 
-  console.log(backendURL);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
