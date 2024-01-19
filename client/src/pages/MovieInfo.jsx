@@ -87,6 +87,7 @@ const MovieInfo = () => {
 
             const response = await fetch(`${backendURL}/api/user/addtofavorites/${currentUser._id}/${movieId}`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -126,6 +127,7 @@ const MovieInfo = () => {
 
             const response = await fetch(`${backendURL}/api/user/addtowatchlist/${currentUser._id}/${movieId}`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },

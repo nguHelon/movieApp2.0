@@ -29,6 +29,7 @@ const LogIn = () => {
             dispatch(logInStart());
             const response = await fetch(`${backendURL}/api/auth/login`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },

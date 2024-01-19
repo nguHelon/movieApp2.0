@@ -4,7 +4,8 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken"
 
 const cookieOptions = {
-    domain: "https://hcmovieapp.netlify.app/"
+    domain: "https://hcmovieapp.netlify.app/",
+    SameSite: None
 }
 
 const signUp = async (req, res, next) => {

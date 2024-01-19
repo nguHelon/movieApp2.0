@@ -24,6 +24,7 @@ const Profile = () => {
         dispatch(updateStart())
         const response = await fetch(`${backendURL}/api/user/update/${currentUser._id}`, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
