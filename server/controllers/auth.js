@@ -4,8 +4,6 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken"
 
 const cookieOptions = {
-    HttpOnly: true,
-    secure: true,
     domain: "https://hcmovieapp.netlify.app/"
 }
 
