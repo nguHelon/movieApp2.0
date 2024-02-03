@@ -1,6 +1,6 @@
 import User from "../models/user.js";
 import errorHandler from "../utils/errorHandler.js";
-import bcryptjs from "bcryptjs";
+import argon2 from "argon2"
 
 const updateUser = async (req, res, next) => {
     const { id } = req.params;
@@ -12,7 +12,7 @@ const updateUser = async (req, res, next) => {
 
     try {
         if (password) {
-            password = bcryptjs.hashSync(password, 10);
+            password = await argon2.hash(password);
         }
 
         const updatedUser = await User.findByIdAndUpdate(id, {

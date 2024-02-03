@@ -12,7 +12,8 @@ const app = express();
 //middlewares
 app.use(express.json({ limit: "30mb" }));
 app.use(cors({
-    origin: "https://hcmovieapp.netlify.app/"
+    origin: ["https://hcmovieapp.netlify.app/", "http://localhost:5173"],
+    credentials: true,
 }));
 app.use(cookieParser());
 

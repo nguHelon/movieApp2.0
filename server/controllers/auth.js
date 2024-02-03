@@ -1,18 +1,18 @@
+import argon2 from "argon2";
 import User from "../models/user.js";
 import errorHandler from "../utils/errorHandler.js";
-import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken"
 
 const cookieOptions = {
-    domain: "https://hcmovieapp.netlify.app/",
-    SameSite: None
+    SameSite: "None"
 }
 
 const signUp = async (req, res, next) => {
     const { password, ...userData } = req.body;
-    const hashedPassword = bcryptjs.hashSync(password, 10);
 
     try {
+        const hashedPassword = await argon2.hash(password);
+
         const user = await User.findOne({ email: userData.email });
         if (user) {
             next(errorHandler(400, "email already exist, please choose another one"));
@@ -39,7 +39,7 @@ const logIn = async (req, res, next) => {
             return;
         }
 
-        const validPassword = bcryptjs.compareSync(password, user.password);
+        const validPassword = await argon2.verify(user.password, password);
 
         if (!validPassword) {
             next(errorHandler(400, "wrong credentials"));
@@ -74,7 +74,7 @@ const googleSignIn = async (req, res, next) => {
                 .json(userData);
         } else {
             const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
-            const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+            const hashedPassword = await argon2.hash(generatedPassword);
 
             const newUser = new User({ username, email, password: hashedPassword, avatar })
             await newUser.save();
