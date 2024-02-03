@@ -4,7 +4,7 @@ import errorHandler from "../utils/errorHandler.js";
 import jwt from "jsonwebtoken"
 
 const cookieOptions = {
-    SameSite: "None"
+    sameSite: "None"
 }
 
 const signUp = async (req, res, next) => {
