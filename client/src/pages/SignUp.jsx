@@ -53,7 +53,7 @@ const SignUp = () => {
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-        <form className="w-10/12 flex flex-col space-y-2 md:w-2/5" onSubmit={handleSubmit}>
+        <form className="w-10/12 flex flex-col text-center space-y-2 md:w-2/5" onSubmit={handleSubmit}>
             <input
                 type="text" 
                 placeholder="your full name" 
@@ -86,10 +86,10 @@ const SignUp = () => {
             />
             <p className="text-lightGray2">or</p>
             <OAuth />
-            {
-                error && <p className="text-red-500 fs-2">{error}</p>
-            }
         </form>
+        {
+            error && <p className="text-red-500 fs-2 mt-3">{error}</p>
+        }
     </div>
   )
 }
