@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, logOutFailure, logOutStart, logOutSuccessfull, updateFailed, updateStart, updateSuccess } from "../store/services/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-// import FileBase from "react-file-base64";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -48,7 +47,9 @@ const Profile = () => {
   const handleLogOut = async () => {
     try {
         dispatch(logOutStart());
-        const response = await fetch(`${backendURL}/auth/logout`);
+        const response = await fetch(`${backendURL}/api/auth/logout`, {
+            credentials: "include"
+        });
 
         const data = await response.json();
 
@@ -66,7 +67,9 @@ const Profile = () => {
   const deleteUser = async () => {
     try {
         dispatch(deleteUserStart());
-        const response = await fetch(`${backendURL}/user/delete/${currentUser._id}`);
+        const response = await fetch(`${backendURL}/api/user/delete/${currentUser._id}`, {
+            credentials: "include"
+        });
 
         const data = await response.json();
 
@@ -147,11 +150,6 @@ const Profile = () => {
                     onChange={handleInputChange}
                     className="px-2 py-2 w-full bg-secondaryGray text-white outline-none rounded-lg border border-1 border-gray-600"
                 />
-                {/* <FileBase 
-                    type="file"
-                    multiple={false}
-                    onDone={({ base64 }) => setUserData({ ...userData, avatar: base64})} 
-                /> */}
                 <input
                     type="submit"
                     value={loading ? "Updating..." : "Update Profile"}

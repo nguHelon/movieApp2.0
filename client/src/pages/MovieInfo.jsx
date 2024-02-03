@@ -14,22 +14,30 @@ import { black } from "../assets"
 const MovieTrailer = ({ setShowTrailer }) => {
     const { movieId } = useParams();
     const { data, isFetching } = useGetMovieTrailerQuery({ movieId });
-    const trailerKey = data?.results?.find(trailer => trailer.site == "YouTube" && trailer.type == "Trailer").key;
+    const trailerKey = data?.results.length != 0 ? data?.results?.find(trailer => trailer.site == "YouTube" && trailer.type == "Trailer").key : undefined;
 
     if (isFetching) return <Loader title="loading Trailer..." />
 
     return (
         <div className="fixed top-0 left-0 w-full h-screen flex justify-center items-center bg-gradient-to-r from-black/90 to-black/90 backdrop-blur-xl">
-            <div className="w-full flex flex-col justify-center items-center ">
-                <FaTimes
-                    className="p-1 text-black font-bold rounded-full text-3xl bg-white mb-3 cursor-pointer"
-                    onClick={() => {
-                        setShowTrailer(false);
-                    }}
-                />
-                <iframe src={`https://www.youtube.com/embed/${trailerKey}`} className="w-[300px] h-[200px] sm:w-[400px] sm:h-[300px] md:w-[700px] md:h-[500px]" ></iframe>
-
-            </div>
+            {                
+                <div className="w-full flex flex-col justify-center items-center ">
+                    <FaTimes
+                        className="p-1 text-black font-bold rounded-full text-3xl bg-white mb-3 cursor-pointer"
+                        onClick={() => {
+                            setShowTrailer(false);
+                        }}
+                    />
+                    {
+                        trailerKey ? (
+                            <iframe src={`https://www.youtube.com/embed/${trailerKey}`} className="w-[300px] h-[200px] sm:w-[400px] sm:h-[300px] md:w-[700px] md:h-[500px]" ></iframe>
+                        ) : (
+                            <div className="text-white text-2xl mt-5">Trailer Not Found</div>
+                        )
+                    }
+                </div>
+            }
+            
         </div>
     )
 }
@@ -60,7 +68,9 @@ const MovieInfo = () => {
     useEffect(() => {
         const getUserReactions = async () => {
             try {
-                const response = await fetch(`${backendURL}/api/user/getfavoritesandwatchlist/${currentUser._id}`);
+                const response = await fetch(`${backendURL}/api/user/getfavoritesandwatchlist/${currentUser._id}`, {
+                    credentials: "include"
+                });
                 const data = await response.json();
 
                 if (data.favoriteMovies.includes(movieId)) {

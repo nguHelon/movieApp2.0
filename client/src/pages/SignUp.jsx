@@ -41,7 +41,6 @@ const SignUp = () => {
             return;
         }
         
-        console.log(data.messgae);
         setError(null);
         setLoading(false);
         navigate("/log-in");
@@ -85,6 +84,7 @@ const SignUp = () => {
                 className={`text-center py-2 bg-mainorange rounded-lg font-medium fs-3 cursor-pointer ${ loading ? "bg-orange-900 cursor-not-allowed" : ""}`}
                 disabled={loading}
             />
+            <p className="text-lightGray2">or</p>
             <OAuth />
             {
                 error && <p className="text-red-500 fs-2">{error}</p>

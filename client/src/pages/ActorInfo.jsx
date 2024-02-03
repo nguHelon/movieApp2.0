@@ -66,11 +66,11 @@ const ActorInfo = () => {
                     </div>
                     <div className="">
                         <h1 className="text-white font-semibold text-xl">Birthday</h1>
-                        <p className="text-lightGray2 font-medium">{data?.birthday + ` (${(currentYear.getFullYear() - data?.birthday.split("-")[0] + " years old")})`}</p>
+                        <p className="text-lightGray2 font-medium">{data?.birthday ? data?.birthday + ` (${(currentYear.getFullYear() - data?.birthday.split("-")[0] + " years old")})` : "Not provided"}</p>
                     </div>
                     <div className="">
                         <h1 className="text-white font-semibold text-xl">Place of Birth</h1>
-                        <p className="text-lightGray2 font-medium">{data?.place_of_birth}</p>
+                        <p className="text-lightGray2 font-medium">{data?.place_of_birth ? data?.place_of_birth : "Not provided"}</p>
                     </div>
                     <div className="">
                         <h1 className="text-white font-semibold text-xl">Also know As</h1>

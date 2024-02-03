@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
 const LogIn = () => {
-    const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL;
+    const backendURL = import.meta.env.VITE_BACKEND_SERVICE_URL || "http://localhost:5000";
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.user);

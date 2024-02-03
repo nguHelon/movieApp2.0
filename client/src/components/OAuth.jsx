@@ -41,10 +41,10 @@ const OAuth = () => {
     <button
         onClick={handleSubmit}
         type="button"
-        className={`text-center py-2 bg-red-700 text-white rounded-lg font-medium fs-3 cursor-pointer`}
+        className={`text-center py-2 bg-red-700 text-white rounded-lg font-medium fs-3 cursor-pointer ${loading ? "bg-red-900 cursor-not-allowed" : ""}`}
         disabled={loading}
     >
-        continue with google
+        { loading ? "Signing you In..." : "continue with google"}
     </button>
   )
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import AuthCheck from "../components/AuthCheck";
 import { useSelector } from "react-redux";
+import AuthCheck from "../components/AuthCheck";
 import MovieCard from "../components/MovieCard";
 import Loader from "../components/Loader";
 
@@ -14,7 +14,9 @@ const Body = () => {
     useEffect(() => {
         const getUserReactions = async () => {
             try {
-                const response = await fetch(`${backendURL}/api/user/getfavoritesandwatchlist/${currentUser._id}`);
+                const response = await fetch(`${backendURL}/api/user/getfavoritesandwatchlist/${currentUser._id}`, {
+                    credentials: "include"
+                });
 
                 const userReactions = await response.json();
                 setUserReactions(userReactions);
