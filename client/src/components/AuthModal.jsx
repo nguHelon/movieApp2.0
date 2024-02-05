@@ -11,7 +11,7 @@ const AuthModal = ({ message }) => {
   }
 
   return (
-    <div className="absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2 flex-1 p-4 rounded-lg bg-primaryGray text-lightGray2 font-medium z-20 text-center shadow-2xl box-shadow1">
+    <div className="absolute top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2 flex-1 min-w-[250px] p-4 rounded-lg bg-primaryGray text-lightGray2 font-medium z-20 text-center shadow-2xl box-shadow1">
         <div className="w-full flex justify-center mb-3">
             <img src={auth} alt="auth img" className="h-24 w-24" />
         </div>
