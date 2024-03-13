@@ -77,6 +77,8 @@ const MovieInfo = () => {
                     setUserReactions({ ...userReactions, isMovieLiked: true });                    
                 } else if (data.watchlist.includes(movieId)) {
                     setUserReactions({ ...userReactions, isPartOfWatchlist: true });                    
+                } else {
+                    setUserReactions({ isMovieLiked: false, isPartOfWatchlist: false});
                 }
             } catch (err) {
                 console.log();
@@ -84,7 +86,7 @@ const MovieInfo = () => {
         }
 
         getUserReactions();
-    }, [data]);
+    }, [movieId]);
 
     const addToFavorites = async () => {
         try {

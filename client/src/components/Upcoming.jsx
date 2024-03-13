@@ -1,7 +1,11 @@
-import MovieCard from "./MovieCard"
+import { lazy, Suspense } from "react";
 import { useGetUpcomingMoviesQuery } from "../store/services/tmdbAPI"
+import MovieCardFallback from "./MovieCardFallback";
 import Loader from "./Loader";
 import { Link } from "react-router-dom";
+
+// Dynamic imports
+const MovieCard = lazy(() => import("./MovieCard"))
 
 const Upcoming = () => {
   const { data, isFetching} = useGetUpcomingMoviesQuery();
@@ -23,13 +27,17 @@ const Upcoming = () => {
         <div className=" flex flex-wrap justify-center">
             {
                 data?.results?.slice(0, 5).map(movie => {
-                    if (movie.backdrop_path) return <MovieCard 
-                        key={movie.id}
-                        movieId={movie.id}
-                        movieName={movie.original_title}
-                        releaseDate={movie.release_date}
-                        backdropPath={movie.backdrop_path}                    
-                    />
+                    if (movie.backdrop_path) return (
+                        <Suspense key={movie.id} fallback={<MovieCardFallback />}> 
+                            <MovieCard 
+                                key={movie.id}
+                                movieId={movie.id}
+                                movieName={movie.original_title}
+                                releaseDate={movie.release_date}
+                                backdropPath={movie.backdrop_path}                    
+                            />
+                        </Suspense>
+                    )
                 })
             }
         </div>

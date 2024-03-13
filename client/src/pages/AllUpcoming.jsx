@@ -1,11 +1,12 @@
-import MovieCard from "../components/MovieCard"
+import { Suspense, lazy } from "react";
+import MovieCardFallback from "../components/MovieCardFallback";
 import { useGetUpcomingMoviesQuery } from "../store/services/tmdbAPI"
-import Loader from "../components/Loader"
+
+// Dynamic import
+const MovieCard = lazy(() => import("../components/MovieCard"))
 
 const AllUpcoming = () => {
-  const { data, isFetching } = useGetUpcomingMoviesQuery();
-
-  if (isFetching) return <Loader title="Loading Upcoming movies..." />
+  const { data } = useGetUpcomingMoviesQuery();
 
   return (
     <div className="w-full">
@@ -15,13 +16,16 @@ const AllUpcoming = () => {
         <div className="w-full flex flex-wrap justify-center gap-3">
             {
                 data?.results?.map((movie) => {
-                    if (movie.backdrop_path) return <MovieCard 
-                        key={movie.id}
-                        movieId={movie.id}
-                        releaseDate={movie.release_date}
-                        movieName={movie.original_title}
-                        backdropPath={movie.backdrop_path}
-                    />
+                    if (movie.backdrop_path) return (
+                        <Suspense key={movie.id} fallback={<MovieCardFallback />}>
+                            <MovieCard 
+                                movieId={movie.id}
+                                releaseDate={movie.release_date}
+                                movieName={movie.original_title}
+                                backdropPath={movie.backdrop_path}
+                            />
+                        </Suspense>
+                    )
                 })
             }
         </div>

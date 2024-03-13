@@ -1,12 +1,11 @@
-import Loader from "../components/Loader";
+import { lazy, Suspense } from "react";
+import ActorViewFallback from "../components/ActorViewFallback";
 import { useGetActorsQuery } from "../store/services/tmdbAPI";
-import ActorView from "../components/ActorView";
 
+const ActorView = lazy(() => import("../components/ActorView"));
 
 const AllActors = () => {
-  const {data, isFetching} = useGetActorsQuery();
-
-  if (isFetching) return <Loader title="Loading actors..." />
+  const {data} = useGetActorsQuery();
 
   return (
     <div className="w-full px-5 py-7">
@@ -17,13 +16,16 @@ const AllActors = () => {
             <div className="w-full flex justify-center items-center gap-2 flex-wrap">
                 {
                     data?.results?.map((actor) => {
-                        return <ActorView 
-                            key={actor.id}
-                            actorId={actor.id}
-                            name={actor.name}
-                            profilePath={actor.profile_path}
-                            knownfor={actor.known_for}
-                        />
+                        return (
+                            <Suspense key={actor.id} fallback={<ActorViewFallback />}>
+                                <ActorView                                     
+                                    actorId={actor.id}
+                                    name={actor.name}
+                                    profilePath={actor.profile_path}
+                                    knownfor={actor.known_for}
+                                />
+                            </Suspense>
+                        )
                     })
                 }
             </div>
