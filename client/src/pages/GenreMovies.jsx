@@ -1,13 +1,14 @@
+import { Suspense, lazy } from "react";
 import { useParams } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
-import Loader from "../components/Loader";
+import MovieCardFallback from "../components/MovieCardFallback";
 import { useGetMovieByGenreQuery } from "../store/services/tmdbAPI";
+
+// Dynamic imports
+const MovieCard = lazy(() => import("../components/MovieCard"))
 
 const GenreMovies = () => {
     const {genreId, genreName} = useParams();
-    const {data, isFetching} = useGetMovieByGenreQuery({ genreId });
-
-    if (isFetching) return <Loader title={`Loading ${genreName} movies...`} />
+    const {data} = useGetMovieByGenreQuery({ genreId });
 
     return (
         <div className="w-full px-5 py-7">
@@ -16,15 +17,18 @@ const GenreMovies = () => {
                     <h1 className="text-white font-bold text-2xl">{`${genreName}`} Movies</h1>
                 </div>
                 <div className="w-full flex justify-center items-center gap-2 flex-wrap">
-                    { isFetching ? <Loader /> :
+                    {
                         data?.results?.map((movie) => {
-                            if (movie.backdrop_path) return <MovieCard 
-                                key={movie.id}
-                                movieId={movie.id}
-                                releaseDate={movie.release_date}
-                                movieName={movie.original_title}
-                                backdropPath={movie.backdrop_path}
-                            />
+                            if (movie.backdrop_path) return (
+                                <Suspense key={movie.id} fallback={<MovieCardFallback />}>
+                                    <MovieCard                                        
+                                        movieId={movie.id}
+                                        releaseDate={movie.release_date}
+                                        movieName={movie.original_title}
+                                        backdropPath={movie.backdrop_path}
+                                    />
+                                </Suspense>
+                            )
                         })
                     }
                 </div>

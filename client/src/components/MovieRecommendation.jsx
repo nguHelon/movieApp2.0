@@ -14,12 +14,7 @@ const MovieRecommendation = () => {
             data?.results?.slice(0, 12).map(movie => {
                 if (movie.backdrop_path) return (
                     <Link 
-                        key={movie.id} to={`/movieInfo/${movie.id}`}
-                        onClick={() => {
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 4000)
-                        }}
+                        key={movie.id} to={`/movieInfo/${movie.id}`}                        
                     >
                         <div className="flex-none w-[300px] h-[230px]">
                             <div className="w-full h-4/5">

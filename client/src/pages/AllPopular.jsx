@@ -1,11 +1,12 @@
-import Loader from "../components/Loader";
-import MovieCard from "../components/MovieCard"
+import { Suspense, lazy } from "react";
 import { useGetPopularMoviesQuery } from "../store/services/tmdbAPI"
+import MovieCardFallback from "../components/MovieCardFallback";
+
+// Dynamic imports
+const MovieCard = lazy(() => import("../components/MovieCard"));
 
 const AllPopular = () => {
-  const { data, isFetching } = useGetPopularMoviesQuery();
-
-  if (isFetching) return <Loader title="Loading Popular Movies..." />
+  const { data } = useGetPopularMoviesQuery();
 
   return (
     <div className="w-full">
@@ -15,14 +16,16 @@ const AllPopular = () => {
         <div className="w-full flex flex-wrap justify-center gap-3">
             {
                 data?.results?.map((movie) => {
-                    if (movie.backdrop_path) return <MovieCard 
-                        key={movie.id}
-                        movieId={movie.id}
-                        releaseDate={movie.release_date}
-                        movieName={movie.original_title}
-                        backdropPath={movie.backdrop_path}
-                        loading={isFetching}
-                    />
+                    if (movie.backdrop_path) return (
+                        <Suspense key={movie.id} fallback={<MovieCardFallback />}>
+                            <MovieCard 
+                                movieId={movie.id}
+                                releaseDate={movie.release_date}
+                                movieName={movie.original_title}
+                                backdropPath={movie.backdrop_path}
+                            />
+                        </Suspense>
+                    )
                 })
             }
         </div>
