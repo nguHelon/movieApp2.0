@@ -5,7 +5,7 @@ export const tmdbAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "https://api.themoviedb.org/3",
         prepareHeaders: (headers) => {
-            headers.set("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYTFlZjU2MzE3OWQ2OTM5ZTA3ZWYxOTAxYWVjODIwNCIsInN1YiI6IjYzZDEwMjcxY2I3MWI4MDA4NWRkMWVhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GFORMLkhBq4MYqs5R8HP3kUbrj17SEQtafg5ecl3FAs");
+            headers.set("Authorization", `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`);
 
             return headers;
         }
