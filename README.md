@@ -42,6 +42,8 @@ VITE_FIREBASE_API_KEY=YOUR_FIREBASE_API_KEY_FOR_GOOGLE_AUTHENTICATION
 
 VITE_BACKEND_SERVICE_URL="http://localhost:5000"
 
+VITE_TMDB_API_KEY=YOUR_TMDB_API_KEY
+
 ```
 
 5. In the server directory create a .env file containing the following env variables:
